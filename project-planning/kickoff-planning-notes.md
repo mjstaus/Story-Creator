@@ -58,14 +58,6 @@ Goal here will be MVD - Minimum Viable Demo
 ## User Registration/Login
 - Dont do it
 
-/users/7
-
-All martha's stories
-
---
-- 
-- 
-- 
 
 
 
