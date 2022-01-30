@@ -6,7 +6,7 @@ Attendees:
 ## Standing Items
 - Progress on current objectives
 
-## New Items
+## Agenda Items
 - What's next
 
 ## Roundtable
