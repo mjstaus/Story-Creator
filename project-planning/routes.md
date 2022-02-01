@@ -8,13 +8,13 @@
 ### Read (see particular)
 - GET /users/:id
 - GET /stories/:id
+- Get /contributions/:id
 
 ### Edit
 - POST /users/:id
 - POST /stories/:id
 
 ### Add
-- POST /users
 - POST /stories
 
 ### Delete
