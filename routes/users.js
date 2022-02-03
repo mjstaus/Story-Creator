@@ -9,7 +9,7 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
-  router.get("/:id", (req, res) => {
+  router.get("/:id/stories", (req, res) => {
     db.query(`
     SELECT *
     FROM stories
@@ -18,7 +18,22 @@ module.exports = (db) => {
     `, [req.params.id])
       .then((data) => {
         const templateVars = { stories: data.rows };
-        res.render("users/users_show", templateVars);
+        res.render("users/users_stories", templateVars);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+  router.get("/:id/contributions", (req, res) => {
+    db.query(`
+    SELECT *
+      FROM contributions
+      WHERE user_id = $1
+      ORDER BY user_id DESC;
+    `, [req.params.id])
+      .then((data) => {
+        const templateVars = { contributions: data.rows };
+        res.render("users/users_contributions", templateVars);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
