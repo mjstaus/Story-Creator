@@ -1,0 +1,11 @@
+<%-include("../partials/_header")%>
+<%-include("../partials/_navbar")%>
+
+<h1>Show user's stories</h1>
+<% for (let contribution of contributions) { %>
+  <div>
+    <ul><%= contribution.content %></ul>
+  </div>
+<% } %>
+
+<%-include("../partials/_footer")%>
