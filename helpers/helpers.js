@@ -12,7 +12,7 @@
   VALUES ($1, $2, $3)
   RETURNING *
   `;
-  return pool.query(queryString, [name, email, password])
+  return db.query(queryString, [name, email, password])
     .then(res => {
       return res.rows[0];
     });
@@ -26,7 +26,7 @@ exports.addUser = addUser;
  */
 const getUserWithEmail = (email) => {
   const queryString = `SELECT * FROM users WHERE email = $1`;
-  return pool.query(queryString, [email])
+  return db.query(queryString, [email])
     .then(res => {
       return res.rows[0];
     });
@@ -40,7 +40,7 @@ exports.getUserWithEmail = getUserWithEmail;
  */
 const getUserWithId = (id) => {
   const queryString = `SELECT * FROM users WHERE id = $1`;
-  return pool.query(queryString, [id])
+  return db.query(queryString, [id])
     .then(res => {
       return res.rows[0];
     });
@@ -63,7 +63,7 @@ exports.getUserWithId = getUserWithId;
   VALUES ($1, $2, $3)
   RETURNING *;
   `;
-  return pool.query(queryString, queryParams)
+  return db.query(queryString, queryParams)
     .then((res) => {
       return res.rows;
     })
@@ -86,7 +86,7 @@ const getAllInProgressStories = (limit = 10) => {
   ORDER BY id DESC
   LIMIT $1
   `;
-  return pool.query(queryString, [limit])
+  return db.query(queryString, [limit])
     .then(res => {
       return res.rows;
     });
@@ -98,7 +98,7 @@ exports.getAllInProgressStories = getAllInProgressStories;
  * @param {string} limit Number limit of responses.
  * @return {Promise<[{}]>} A promise to the stories.
  */
- const getAllCompletedStories = (limit = 10) => {
+ const getAllCompletedStories = (db, limit = 10) => {
   const queryString = `
   SELECT initial_content
   FROM stories
@@ -106,7 +106,7 @@ exports.getAllInProgressStories = getAllInProgressStories;
   ORDER BY id DESC
   LIMIT $1
   `;
-  return pool.query(queryString, [limit])
+  return db.query(queryString, [limit])
     .then(res => {
       return res.rows;
     });
@@ -127,7 +127,7 @@ exports.getAllCompletedStories = getAllCompletedStories;
   ORDER BY id DESC
   LIMIT $2
   `;
-  return pool.query(queryString, [userID, limit])
+  return db.query(queryString, [userID, limit])
     .then(res => {
       return res.rows;
     });
@@ -150,7 +150,7 @@ exports.getAllUserStories = getAllUserStories;
   ORDER BY user_id DESC
   LIMIT $2
   `;
-  return pool.query(queryString, [userID, limit])
+  return db.query(queryString, [userID, limit])
     .then(res => {
       return res.rows;
     });
@@ -176,10 +176,12 @@ exports.getAllUserContributions = getAllUserContributions;
   ORDER BY votes DESC
   LIMIT $2
   `;
-  return pool.query(queryString, [storyID, limit])
+  return db.query(queryString, [storyID, limit])
     .then(res => {
       return res.rows;
     });
 };
 exports.getAllContributions = getAllContributions;
+
+module.exports = { addUser, getUserWithEmail, getUserWithId, addStory, getAllInProgressStories, getAllCompletedStories, getAllUserStories, getAllContributions, }
 
