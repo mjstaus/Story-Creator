@@ -2,8 +2,6 @@
 <%-include("../partials/_navbar")%>
 
 <h1>Show one story</h1>
-<% for (let user of users) { %>
-  <ul><%= user.name %></ul>
-  <% } %>
-
+  <ul><%= stories.title %></ul>
+  <ul><%= stories.initial_content %></ul>
 <%-include("../partials/_footer")%>
