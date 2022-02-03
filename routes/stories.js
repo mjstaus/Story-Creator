@@ -50,12 +50,12 @@ module.exports = (db) => {
     db.query(`
     SELECT *
     FROM stories
-    WHERE id = $1
-    ORDER BY id DESC;
+    WHERE id = $1;
     `, [req.params.id])
       .then((data) => {
-        const templateVars = { stories: data.rows };
-        res.render("stories/stories_index", templateVars);
+        const templateVars = { stories: data.rows[0] };
+        console.log(templateVars)
+        res.render("stories/stories_show", templateVars);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -63,7 +63,24 @@ module.exports = (db) => {
   });
 
   router.get("/:id/contributions", (req, res) => {
-    res.send("View all contributions for a story");
+    db.query(`
+      SELECT users.name, count(contribution_votes.contribution_id) AS votes, content
+        FROM contribution_votes
+        JOIN users ON users.id = contribution_votes.contribution_id
+        JOIN contributions ON contributions.id = contribution_id
+        WHERE contribution_votes.story_id = $1
+        AND contributions.accepted = FALSE
+        AND contributions.archived = FALSE
+        GROUP BY users.name, contribution_votes.contribution_id, contributions.content
+        ORDER BY votes DESC;`,
+      [req.params.id])
+      .then((data) => {
+        const templateVars = { contributions: data.rows };
+        res.render("stories/stories_index", templateVars);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
   });
 
   router.get("/:id/contributions/:id", (req, res) => {
