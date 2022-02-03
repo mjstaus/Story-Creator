@@ -1,5 +1,8 @@
 const express = require('express');
+<<<<<<< HEAD
 const { restart } = require('nodemon');
+=======
+>>>>>>> 50da78124dc111afe3c74b58416a39d5bb0cec56
 const router  = express.Router();
 
 // module.exports = (db) => {
