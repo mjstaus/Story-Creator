@@ -14,6 +14,42 @@ module.exports = (db) => {
       });
   });
 
+
+  router.get("/inprogress", (req, res) => {
+    db.query(`
+    SELECT *
+    FROM stories
+    WHERE complete = FALSE
+    ORDER BY id DESC;
+    `)
+      .then((data) => {
+        const templateVars = { stories: data.rows };
+        res.render("stories/stories_index", templateVars);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+  router.get("/complete", (req, res) => {
+    db.query(`
+    SELECT *
+    FROM stories
+    WHERE complete = TRUE
+    ORDER BY id DESC;
+    `)
+      .then((data) => {
+        const templateVars = { stories: data.rows };
+        res.render("stories/stories_index", templateVars);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+
+
+
   router.get("/:id", (req, res) => {
     res.send("View one story");
   });
