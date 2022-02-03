@@ -1,7 +1,3 @@
-require("dotenv").config();
-const pool = require("./db_connection");
-
-
 /// Users
 
 /**
