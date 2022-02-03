@@ -60,11 +60,11 @@ exports.getUserWithId = getUserWithId;
  * @return {Promise<{}>} A promise to the stories.
  */
  const addStory = function(story) {
-  const { creatorID, initialContent } = story;
-  const queryParams = [creatorID, initialContent];
+  const { userID, title, initialContent } = story;
+  const queryParams = [userID, title, initialContent];
   const queryString = `
-  INSERT INTO stories (creator_id, initial_content)
-  VALUES ($1, $2)
+  INSERT INTO stories (user_id, title, initial_content)
+  VALUES ($1, $2, $3)
   RETURNING *;
   `;
   return pool.query(queryString, queryParams)
@@ -84,7 +84,7 @@ exports.addStory = addStory;
  */
 const getAllInProgressStories = (limit = 10) => {
   const queryString = `
-  SELECT initial_content
+  SELECT title, initial_content
   FROM stories
   WHERE complete = FALSE
   ORDER BY id DESC
@@ -127,7 +127,7 @@ exports.getAllCompletedStories = getAllCompletedStories;
   const queryString = `
   SELECT initial_content
   FROM stories
-  WHERE creator_id = $1
+  WHERE user_id = $1
   ORDER BY id DESC
   LIMIT $2
   `;
@@ -150,8 +150,8 @@ exports.getAllUserStories = getAllUserStories;
   const queryString = `
   SELECT content
   FROM contributions
-  WHERE contributor_id = $1
-  ORDER BY contributor_id DESC
+  WHERE user_id = $1
+  ORDER BY user_id DESC
   LIMIT $2
   `;
   return pool.query(queryString, [userID, limit])
