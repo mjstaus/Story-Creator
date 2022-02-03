@@ -1,6 +1,10 @@
 <%-include("../partials/_header")%>
 <%-include("../partials/_navbar")%>
 
-<h1>HELLO AMY!</h1>
+<h1>Show all stories</h1>
+
+<% for (let story of stories) { %>
+  <ul><%= story.title %></ul>
+  <% } %>
 
 <%-include("../partials/_footer")%>
