@@ -20,8 +20,9 @@ const router  = express.Router();
 
 module.exports = (db) => {
 
+//All stories
   router.get("/", (req, res) => {
-    res.send('All stories')
+    res.render("stories/stories_index")
   });
 
   router.get("/:id", (req, res) => {
