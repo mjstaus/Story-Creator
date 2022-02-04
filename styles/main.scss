@@ -1,24 +1,164 @@
+$h2size: 4rem;
+$deepblue: #2b1392;
+$lightpink: #fee7e7;
+$lightblue: #e8e2ff;
+$purple: #6f5acd;
+$darkpink: #ff93dd;
+
 body {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   min-height: 100vh;
-
-  h1 {
-    color: #294A70
+  h2 {
+    color: $deepblue;
+    font: {
+      size: $h2size;
+    }
+  }
+  p {
+    font: {
+      size: 1.5rem;
+    }
   }
 
-  background-image: linear-gradient(
-  330deg,
-  hsl(25deg 100% 74%) 0%,
-  hsl(22deg 100% 73%) 21%,
-  hsl(18deg 100% 73%) 30%,
-  hsl(14deg 100% 73%) 39%,
-  hsl(10deg 100% 73%) 46%,
-  hsl(5deg 100% 73%) 54%,
-  hsl(359deg 100% 73%) 61%,
-  hsl(353deg 100% 71%) 69%,
-  hsl(347deg 100% 69%) 79%,
-  hsl(342deg 100% 67%) 100%
-);
+  .button {
+    background-color: $darkpink;
+    border: {
+      radius:28px;
+    }
+    border:1px solid #ffffff;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font: {
+      family: Arial;
+      size: 17px;
+      weight: bold;
+    }
+    padding:16px 31px;
+    text: {
+      decoration: none;
+      align: center;
+    }
+  }
+  .button:hover {
+    background-color:#a17a95;
+  }
+  .button:active {
+    position:relative;
+    top:1px;
+  }
+
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2%;
+    background: {
+      color: $lightpink;
+    }
+
+    p {
+      font: {
+        size: 24px;
+      }
+      color: $deepblue;
+    }
+
+    nav {
+      width: 30%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      a {
+        color: $deepblue;
+        text-decoration: none;
+        font-weight: bold;
+      }
+    }
+  }
+  .hero {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background: {
+      color: $lightblue;
+    }
+
+    .hero_copy, .hero_image {
+      display: flex;
+      flex-direction: column;
+      margin: 5%;
+    }
+    .hero_copy {
+      h2 {
+        margin: {
+          top: 1%;
+          bottom: 0;
+        }
+      }
+
+      .subheading {
+        p {
+          font: {
+            size: 1.5rem;
+          }
+        }
+      }
+      .button {
+        width: 60%;
+        margin-top: 10%;
+        font: {
+          size: 1.1rem;
+        }
+      }
+    }
+
+    .hero_image {
+      img {
+        height: 400px;
+        width: 400px;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      }
+    }
+  }
+
+  .discover {
+    display: flex;
+    flex-direction: column;
+    background: {
+      color: $purple;
+    }
+
+    h2 {
+      color: white;
+      text: {
+        align: center;
+      }
+    }
+    .container {
+      margin: 0% 5% 5% 5%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      .storybox {
+        height: 7rem;
+        width: 30%;
+        margin: 2% 1%;
+        border: {
+          radius: 15px;
+        }
+        background: {
+          color: rgb(255, 255, 107);
+        }
+        p {
+          color: black;
+          font: {
+            weight: bold;
+          }
+        }
+      }
+    }
+  }
 }
