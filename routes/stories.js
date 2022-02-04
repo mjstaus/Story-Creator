@@ -7,6 +7,7 @@ module.exports = (db) => {
     db.query(`SELECT * FROM stories;`)
       .then((data) => {
         const templateVars = { stories: data.rows };
+        console.log(templateVars)
         res.render("stories/stories_index", templateVars);
       })
       .catch((err) => {
@@ -64,19 +65,19 @@ module.exports = (db) => {
 
   router.get("/:id/contributions", (req, res) => {
     db.query(`
-      SELECT users.name, count(contribution_votes.contribution_id) AS votes, content
-        FROM contribution_votes
-        JOIN users ON users.id = contribution_votes.contribution_id
-        JOIN contributions ON contributions.id = contribution_id
-        WHERE contribution_votes.story_id = $1
-        AND contributions.accepted = FALSE
-        AND contributions.archived = FALSE
-        GROUP BY users.name, contribution_votes.contribution_id, contributions.content
-        ORDER BY votes DESC;`,
-      [req.params.id])
+    SELECT contributions.user_id, users.name, count(contribution_votes.contribution_id) AS votes, contributions.content
+    FROM contribution_votes
+    RIGHT JOIN contributions ON contribution_id = contributions.id
+    JOIN users ON contributions.user_id = users.id
+    WHERE contributions.story_id = $1
+    AND contributions.accepted = FALSE
+    AND contributions.archived = FALSE
+    GROUP BY contributions.id, users.name, contribution_votes.contribution_id, contributions.content, contributions.user_id
+    ORDER BY votes DESC;`, [req.params.id])
       .then((data) => {
         const templateVars = { contributions: data.rows };
-        res.render("stories/stories_index", templateVars);
+        console.log(templateVars)
+        res.render("stories/stories_contributions", templateVars);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
