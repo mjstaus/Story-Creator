@@ -3,12 +3,16 @@ $deepblue: #2b1392;
 $lightpink: #fee7e7;
 $lightblue: #e8e2ff;
 $purple: #6f5acd;
+$darkpurple: #533db5;
 $darkpink: #ff93dd;
 
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  h1 {
+    color: $lightblue;
+  }
   h2 {
     color: $deepblue;
     font: {
@@ -85,6 +89,7 @@ body {
     background: {
       color: $lightblue;
     }
+    height: 37rem;
 
     .hero_copy, .hero_image {
       display: flex;
@@ -132,6 +137,7 @@ body {
     }
 
     h2 {
+      width: 100%;
       color: white;
       text: {
         align: center;
@@ -157,6 +163,62 @@ body {
           font: {
             weight: bold;
           }
+        }
+      }
+    }
+  }
+
+  .dashboard {
+    background: {
+      color: $purple;
+    }
+    flex: {
+      direction: column;
+      grow: 1;
+    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .heading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: -8%;
+      h1 {
+        font: {
+          size: 3rem;
+        }
+      }
+    }
+    .action_box {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      margin: 1% 5%;
+      min-height: 300px;
+      .action {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        background: {
+          color: $darkpurple;
+        }
+        .box_heading {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: $darkpink;
+          font: {
+            size: 2rem;
+          }
+        }
+        .body {
+          color: $lightblue;
+          font: {
+            size: 1rem;
+          }
+          margin: 5%;
+          text-align: center;
         }
       }
     }
