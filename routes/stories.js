@@ -58,9 +58,11 @@ module.exports = (db) => {
   //View one story
   router.get("/:id", (req, res) => {
     const queryString = `
-      SELECT *
+      SELECT stories.*, contributions.content
         FROM stories
-        WHERE id = $1;`;
+        JOIN contributions ON stories.id = contributions.story_id
+        WHERE id = $1
+        AND contributions.accepted = TRUE;`;
     db.query(queryString, [req.params.id])
       .then((data) => {
         const templateVars = { stories: data.rows[0] };
@@ -94,6 +96,11 @@ module.exports = (db) => {
         res.status(500).json({ error: err.message });
       });
   });
+
+  //Show one
+  router.get("/contributions/:id", (req, res) => {
+
+  })
 
   //Create new story//
   router.post("/new", (req, res) => {
@@ -182,6 +189,11 @@ module.exports = (db) => {
   router.post("/:id/contributions/:id/delete", (req, res) => {
     res.send("Edit story status");
   });
+
+  router.post("/contributions/:id", (req, res) => {
+
+  })
+  //Accepeted = true for accepted contribution
 
   // router.post()
   return router;
