@@ -16,44 +16,14 @@
   </div>
 </section>
 <section class="discover">
-  <h2>Discover Stories</h2>
   <div class="container">
+  <h2>Discover Stories</h2>
+<% for (let story of stories) { %>
     <div class="storybox">
-      <p>Title</p>
+      <p><%= story.title %></p>
       <img>
     </div>
-    <div class="storybox">
-      <p>Title</p>
-      <img>
-    </div>
-    <div class="storybox">
-      <p>Title</p>
-      <img>
-    </div>
-    <div class="storybox">
-      <p>Title</p>
-      <img>
-    </div>
-    <div class="storybox">
-      <p>Title</p>
-      <img>
-    </div>
-    <div class="storybox">
-      <p>Title</p>
-      <img>
-    </div>
-    <div class="storybox">
-      <p>Title</p>
-      <img>
-    </div>
-    <div class="storybox">
-      <p>Title</p>
-      <img>
-    </div>
-    <div class="storybox">
-      <p>Title</p>
-      <img>
-    </div>
+  <% } %>
   </div>
 </section>
 

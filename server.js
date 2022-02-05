@@ -54,7 +54,15 @@ app.use("/stories", storiesRoutes(db));
 // Separate them into separate routes files (see above).
 
 app.get("/", (req, res) => {
-  res.render("index");
+  db.query(`SELECT * FROM stories LIMIT 9;`)
+      .then((data) => {
+        const templateVars = { stories: data.rows };
+        console.log(templateVars)
+        res.render("index", templateVars);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
 });
 
 app.listen(PORT, () => {

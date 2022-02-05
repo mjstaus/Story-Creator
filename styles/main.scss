@@ -131,7 +131,10 @@ body {
 
   .discover {
     display: flex;
-    flex-direction: column;
+    flex: {
+      direction: column;
+      grow: 1;
+    }
     background: {
       color: $purple;
     }
