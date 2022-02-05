@@ -1,0 +1,10 @@
+INSERT INTO contribution_votes (user_id, contribution_id, story_id) VALUES (2, 1, 1);
+INSERT INTO contribution_votes (user_id, contribution_id, story_id) VALUES (3, 2, 1);
+INSERT INTO contribution_votes (user_id, contribution_id, story_id) VALUES (4, 2, 1);
+INSERT INTO contribution_votes (user_id, contribution_id, story_id) VALUES (5, 3, 1);
+INSERT INTO contribution_votes (user_id, contribution_id, story_id) VALUES (5, 4, 2);
+INSERT INTO contribution_votes (user_id, contribution_id, story_id) VALUES (6, 4, 2);
+INSERT INTO contribution_votes (user_id, contribution_id, story_id) VALUES (8, 4, 2);
+INSERT INTO contribution_votes (user_id, contribution_id, story_id) VALUES (1, 5, 2);
+INSERT INTO contribution_votes (user_id, contribution_id, story_id) VALUES (4, 5, 2);
+INSERT INTO contribution_votes (user_id, contribution_id, story_id) VALUES (9, 6, 2);
