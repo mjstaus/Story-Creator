@@ -20,7 +20,7 @@ module.exports = (db) => {
     ORDER BY id DESC;
     `, [req.params.id])
       .then((data) => {
-        const templateVars = { stories: data.rows };
+        const templateVars = { stories: data.rows, userEmail: req.cookies["userEmail"] };
         res.render("users/users_stories", templateVars);
       })
       .catch((err) => {
@@ -35,7 +35,7 @@ module.exports = (db) => {
       ORDER BY user_id DESC;
     `, [req.params.id])
       .then((data) => {
-        const templateVars = { contributions: data.rows };
+        const templateVars = { stories: data.rows, userEmail: req.cookies["userEmail"] };
         res.render("users/users_contributions", templateVars);
       })
       .catch((err) => {
