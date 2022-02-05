@@ -4,10 +4,11 @@ const router = express.Router();
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM stories;`)
+    const queryString = `SELECT * FROM stories;`
+    db.query(queryString)
       .then((data) => {
         const templateVars = { stories: data.rows };
-        console.log(templateVars)
+        console.log(templateVars);
         res.render("stories/stories_index", templateVars);
       })
       .catch((err) => {
@@ -16,12 +17,12 @@ module.exports = (db) => {
   });
 
   router.get("/inprogress", (req, res) => {
-    db.query(`
-    SELECT *
-    FROM stories
-    WHERE complete = FALSE
-    ORDER BY id DESC;
-    `)
+    const queryString = `
+      SELECT *
+        FROM stories
+        WHERE complete = FALSE
+        ORDER BY id DESC;`;
+    db.query(queryString)
       .then((data) => {
         const templateVars = { stories: data.rows };
         res.render("stories/stories_index", templateVars);
@@ -32,12 +33,12 @@ module.exports = (db) => {
   });
 
   router.get("/complete", (req, res) => {
-    db.query(`
-    SELECT *
-    FROM stories
-    WHERE complete = TRUE
-    ORDER BY id DESC;
-    `)
+    const queryString = `
+      SELECT *
+        FROM stories
+        WHERE complete = TRUE
+        ORDER BY id DESC;`;
+    db.query(queryString)
       .then((data) => {
         const templateVars = { stories: data.rows };
         res.render("stories/stories_index", templateVars);
@@ -48,14 +49,14 @@ module.exports = (db) => {
   });
 
   router.get("/:id", (req, res) => {
-    db.query(`
-    SELECT *
-    FROM stories
-    WHERE id = $1;
-    `, [req.params.id])
+    const queryString = `
+      SELECT *
+        FROM stories
+        WHERE id = $1;`;
+    db.query(queryString, [req.params.id])
       .then((data) => {
         const templateVars = { stories: data.rows[0] };
-        console.log(templateVars)
+        console.log(templateVars);
         res.render("stories/stories_show", templateVars);
       })
       .catch((err) => {
@@ -64,19 +65,20 @@ module.exports = (db) => {
   });
 
   router.get("/:id/contributions", (req, res) => {
-    db.query(`
-    SELECT contributions.user_id, users.name, count(contribution_votes.contribution_id) AS votes, contributions.content
-    FROM contribution_votes
-    RIGHT JOIN contributions ON contribution_id = contributions.id
-    JOIN users ON contributions.user_id = users.id
-    WHERE contributions.story_id = $1
-    AND contributions.accepted = FALSE
-    AND contributions.archived = FALSE
-    GROUP BY contributions.id, users.name, contribution_votes.contribution_id, contributions.content, contributions.user_id
-    ORDER BY votes DESC;`, [req.params.id])
+    const queryString = `
+      SELECT contributions.user_id, users.name, count(contribution_votes.contribution_id) AS votes, contributions.content
+        FROM contribution_votes
+        RIGHT JOIN contributions ON contribution_id = contributions.id
+        JOIN users ON contributions.user_id = users.id
+        WHERE contributions.story_id = $1
+        AND contributions.accepted = FALSE
+        AND contributions.archived = FALSE
+        GROUP BY contributions.id, users.name, contribution_votes.contribution_id, contributions.content, contributions.user_id
+        ORDER BY votes DESC;`;
+    db.query(queryString, [req.params.id])
       .then((data) => {
         const templateVars = { contributions: data.rows };
-        console.log(templateVars)
+        console.log(templateVars);
         res.render("stories/stories_contributions", templateVars);
       })
       .catch((err) => {
