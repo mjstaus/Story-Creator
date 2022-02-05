@@ -113,36 +113,69 @@ module.exports = (db) => {
       };
 
     db.query(query)
-      .then((story) => {
-        // const templateVars = { story: data.rows };
-        // console.log(templateVars);
-        console.log(res.body)
-        res.redirect("/users/1/stories"); //redirect to user's stories vs. show page for newly added story
+      .then((data) => {
+        res.redirect(`/stories/${data.rows[0].id}`); //redirect to show page for newly created story
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
   });
 
-  // router.post('/properties', (req, res) => {
-  //   const userId = req.session.userId;
-  //   database.addProperty({...req.body, owner_id: userId})
-  //     .then(property => {
-  //       res.send(property);
-  //     })
-  //     .catch(e => {
-  //       console.error(e);
-  //       res.send(e)
-  //     });
-  // });
-
+  //Edit a story !!! NOT WORKING YET !!!
   router.post("/:id", (req, res) => {
-    res.send("Edit story");
+     // const userId = req.session.userId;
+     const { title, initialContent } = req.body;
+
+     const queryParams = [title, initialContent];
+     const queryString = `
+           UPDATE stories
+           SET (title, initial_content)
+           VALUES ($1, $2)
+           WHERE id = ${req.params}
+           RETURNING *;
+         `;
+       const query = {
+         text: queryString,
+         values: queryParams,
+       };
+
+     db.query(query)
+       .then((data) => {
+         const templateVars = { story: data.rows };
+         console.log(templateVars);
+         res.redirect(`/`); //redirect to user's stories vs. show page for newly added story
+       })
+       .catch((err) => {
+         res.status(500).json({ error: err.message });
+       });
   });
 
+  //CREATE NEW CONTRIBUTION
   router.post("/:id/contributions", (req, res) => {
-    res.send("Create new contribution");
-  });
+     // const userId = req.session.userId;
+     const { title, initialContent } = req.body;
+
+     const queryParams = [title, initialContent];
+     const queryString = `
+           INSERT INTO contributions (user_id, title, initial_content)
+           VALUES (1, $1, $2)
+           RETURNING *;
+         `;
+       const query = {
+         text: queryString,
+         values: queryParams,
+       };
+
+     db.query(query)
+       .then((data) => {
+         const templateVars = { contributions: data.rows };
+         // console.log(templateVars);
+         res.redirect("/stories/contributions"); //redirect to user's stories vs. show page for newly added story
+       })
+       .catch((err) => {
+         res.status(500).json({ error: err.message });
+       });
+   });
 
   router.post("/:id/contributions/:id", (req, res) => {
     res.send("Edit contribution");
