@@ -98,9 +98,7 @@ module.exports = (db) => {
   });
 
   //Show one
-  router.get("/contributions/:id", (req, res) => {
-
-  })
+  router.get("/contributions/:id", (req, res) => {});
 
   //Create new story//
   router.post("/new", (req, res) => {
@@ -168,9 +166,10 @@ module.exports = (db) => {
     const query = {
       text: queryString,
       values: queryParams,
-    }
+    };
     db.query(query)
       .then((data) => {
+        console.log(req.params.id);
         res.redirect(`/stories/${data.rows[0].story_id}/contributions`);
       })
       .catch((err) => {
@@ -178,21 +177,28 @@ module.exports = (db) => {
       });
   });
 
-  router.post("/:id/contributions/:id", (req, res) => {
-    res.send("Edit contribution");
-  });
-
   // router.post("/:id/delete", (req, res) => {
   //   res.send("Delete story");
   // });
 
-  router.post("/:id/contributions/:id/delete", (req, res) => {
-    res.send("Edit story status");
-  });
-
   router.post("/contributions/:id", (req, res) => {
+    const contributionId = Number(req.params.id);
 
-  })
+    const queryString = `
+      UPDATE contributions
+        SET (accepted)
+        WHERE accepted = TRUE
+        RETURNING *;
+           `;
+    db.query(query)
+      .then((data) => {
+        console.log(data.rows)
+        res.redirect(`/stories/${data.rows[0].story_id}/contributions`);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
   //Accepeted = true for accepted contribution
 
   // router.post()
