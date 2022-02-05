@@ -9,6 +9,9 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
+  router.get("/:id/dashboard", (req, res) => {
+    res.render("users/dashboard");
+  });
   router.get("/:id/stories", (req, res) => {
     db.query(`
     SELECT *
