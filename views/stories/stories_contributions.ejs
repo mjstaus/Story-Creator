@@ -9,10 +9,10 @@
   <% } %>
 
   <h3>Submit New Contribution</h3>
-  <form action="/stories/<%= stories.id %>/contributions" method="POST">
+  <form action="/stories/<%= contributions.story_id %>/contributions" method="POST">
     <div>
-      <label for="contribution">Write Contribution Here</label>
-      <input type="text" name="contribution" placeholder="What happens next?">
+      <label for="content">Write Contribution Here</label>
+      <input type="text" name="content" placeholder="What happens next?">
       <button type="submit">Submit</button>
     </div>
   </form>
