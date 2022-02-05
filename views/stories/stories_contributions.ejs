@@ -8,4 +8,13 @@
   <ul><%= contribution.content %></ul>
   <% } %>
 
+  <h3>Submit New Contribution</h3>
+  <form action="/stories/<%= stories.id %>/contributions" method="POST">
+    <div>
+      <label for="contribution">Write Contribution Here</label>
+      <input type="text" name="contribution" placeholder="What happens next?">
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+
 <%-include("../partials/_footer")%>
