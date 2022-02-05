@@ -3,6 +3,8 @@ const { renderSync } = require("sass");
 const router = express.Router();
 
 module.exports = (db) => {
+
+  //View all stories
   router.get("/", (req, res) => {
     const queryString = `SELECT * FROM stories;`
     db.query(queryString)
@@ -16,6 +18,11 @@ module.exports = (db) => {
       });
   });
 
+  router.get("/new", (req, res) => {
+    res.render("stories/stories_new")
+  })
+
+  //View all in-progress stories
   router.get("/inprogress", (req, res) => {
     const queryString = `
       SELECT *
@@ -32,6 +39,7 @@ module.exports = (db) => {
       });
   });
 
+  //View all completed stories
   router.get("/complete", (req, res) => {
     const queryString = `
       SELECT *
@@ -48,6 +56,7 @@ module.exports = (db) => {
       });
   });
 
+  //View one story
   router.get("/:id", (req, res) => {
     const queryString = `
       SELECT *
@@ -64,6 +73,7 @@ module.exports = (db) => {
       });
   });
 
+  //View all contributions for story
   router.get("/:id/contributions", (req, res) => {
     const queryString = `
       SELECT contributions.user_id, users.name, count(contribution_votes.contribution_id) AS votes, contributions.content
@@ -86,13 +96,45 @@ module.exports = (db) => {
       });
   });
 
-  router.get("/:id/contributions/:id", (req, res) => {
-    res.send("View one contribution");
+  //Create new story// !!!NEED TO ADD USERID!!!
+  router.post("/new", (req, res) => {
+    // const userId = req.session.userId;
+    const { title, initialContent } = req.body;
+
+    const queryParams = [title, initialContent];
+    const queryString = `
+          INSERT INTO stories (user_id, title, initial_content)
+          VALUES (1, $1, $2)
+          RETURNING *;
+        `;
+      const query = {
+        text: queryString,
+        values: queryParams,
+      };
+
+    db.query(query)
+      .then((story) => {
+        // const templateVars = { story: data.rows };
+        // console.log(templateVars);
+        console.log(res.body)
+        res.redirect("/users/1/stories"); //redirect to user's stories vs. show page for newly added story
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
   });
 
-  router.post("/", (req, res) => {
-    res.send("Create new story");
-  });
+  // router.post('/properties', (req, res) => {
+  //   const userId = req.session.userId;
+  //   database.addProperty({...req.body, owner_id: userId})
+  //     .then(property => {
+  //       res.send(property);
+  //     })
+  //     .catch(e => {
+  //       console.error(e);
+  //       res.send(e)
+  //     });
+  // });
 
   router.post("/:id", (req, res) => {
     res.send("Edit story");
