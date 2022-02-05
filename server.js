@@ -59,6 +59,16 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.post("/login", (req, res) => {
+  res.cookie("userEmail", req.body.user_email);
+  res.redirect("/:id/dashboard");
+});
+
+app.post("/logout", (req, res) => {
+  res.clearCookie("userID");
+  res.redirect("index");
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
