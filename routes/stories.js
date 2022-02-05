@@ -3,10 +3,9 @@ const { renderSync } = require("sass");
 const router = express.Router();
 
 module.exports = (db) => {
-
   //View all stories
   router.get("/", (req, res) => {
-    const queryString = `SELECT * FROM stories;`
+    const queryString = `SELECT * FROM stories;`;
     db.query(queryString)
       .then((data) => {
         const templateVars = { stories: data.rows };
@@ -19,8 +18,8 @@ module.exports = (db) => {
   });
 
   router.get("/new", (req, res) => {
-    res.render("stories/stories_new")
-  })
+    res.render("stories/stories_new");
+  });
 
   //View all in-progress stories
   router.get("/inprogress", (req, res) => {
@@ -96,21 +95,19 @@ module.exports = (db) => {
       });
   });
 
-  //Create new story// !!!NEED TO ADD USERID!!!
+  //Create new story//
   router.post("/new", (req, res) => {
-    // const userId = req.session.userId;
     const { title, initialContent } = req.body;
 
     const queryParams = [title, initialContent];
     const queryString = `
           INSERT INTO stories (user_id, title, initial_content)
           VALUES (1, $1, $2)
-          RETURNING *;
-        `;
-      const query = {
-        text: queryString,
-        values: queryParams,
-      };
+          RETURNING *;`;
+    const query = {
+      text: queryString,
+      values: queryParams,
+    };
 
     db.query(query)
       .then((data) => {
@@ -122,68 +119,65 @@ module.exports = (db) => {
   });
 
   //Edit a story !!! NOT WORKING YET !!!
-  router.post("/:id", (req, res) => {
-     // const userId = req.session.userId;
-     const { title, initialContent } = req.body;
+  // router.post("/:id", (req, res) => {
+  //    // const userId = req.session.userId;
+  //    const { title, initialContent } = req.body;
 
-     const queryParams = [title, initialContent];
-     const queryString = `
-           UPDATE stories
-           SET (title, initial_content)
-           VALUES ($1, $2)
-           WHERE id = ${req.params}
-           RETURNING *;
-         `;
-       const query = {
-         text: queryString,
-         values: queryParams,
-       };
+  //    const queryParams = [title, initialContent];
+  //    const queryString = `
+  //          UPDATE stories
+  //          SET (title, initial_content)
+  //          VALUES ($1, $2)
+  //          WHERE id = ${req.params}
+  //          RETURNING *;
+  //        `;
+  //      const query = {
+  //        text: queryString,
+  //        values: queryParams,
+  //      };
 
-     db.query(query)
-       .then((data) => {
-         const templateVars = { story: data.rows };
-         console.log(templateVars);
-         res.redirect(`/`); //redirect to user's stories vs. show page for newly added story
-       })
-       .catch((err) => {
-         res.status(500).json({ error: err.message });
-       });
-  });
+  //    db.query(query)
+  //      .then((data) => {
+  //        const templateVars = { story: data.rows };
+  //        console.log(templateVars);
+  //        res.redirect(`/`); //redirect to user's stories vs. show page for newly added story
+  //      })
+  //      .catch((err) => {
+  //        res.status(500).json({ error: err.message });
+  //      });
+  // });
 
   //CREATE NEW CONTRIBUTION
   router.post("/:id/contributions", (req, res) => {
-     // const userId = req.session.userId;
-     const { title, initialContent } = req.body;
+    const { content } = req.body;
+    const story_id = Number(req.params.id);
 
-     const queryParams = [title, initialContent];
-     const queryString = `
-           INSERT INTO contributions (user_id, title, initial_content)
-           VALUES (1, $1, $2)
-           RETURNING *;
-         `;
-       const query = {
-         text: queryString,
-         values: queryParams,
-       };
-
-     db.query(query)
-       .then((data) => {
-         const templateVars = { contributions: data.rows };
-         // console.log(templateVars);
-         res.redirect("/stories/contributions"); //redirect to user's stories vs. show page for newly added story
-       })
-       .catch((err) => {
-         res.status(500).json({ error: err.message });
-       });
-   });
+    const queryParams = [1, story_id, content];
+    const queryString = `
+        INSERT INTO contributions (user_id, story_id, content)
+        VALUES ($1, $2, $3)
+        RETURNING *;
+      `;
+    const query = {
+      text: queryString,
+      values: queryParams,
+    }
+    db.query(query)
+      .then((data) => {
+        res.redirect(`/stories/${data.rows[0].story_id}/contributions`);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
 
   router.post("/:id/contributions/:id", (req, res) => {
     res.send("Edit contribution");
   });
 
-  router.post("/:id/delete", (req, res) => {
-    res.send("Delete story");
-  });
+  // router.post("/:id/delete", (req, res) => {
+  //   res.send("Delete story");
+  // });
 
   router.post("/:id/contributions/:id/delete", (req, res) => {
     res.send("Edit story status");
