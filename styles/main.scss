@@ -1,20 +1,20 @@
 $h2size: 4rem;
-$deepblue: #2b1392;
-$lightpink: #fee7e7;
-$lightblue: #e8e2ff;
-$purple: #6f5acd;
-$darkpurple: #533db5;
-$darkpink: #ff93dd;
+$deepblue: #227C9D;
+$blue: #84c7ce;
+$yellow: #FFCB77;
+$teal: #0f8a7a;
+$coral: #fe6d73;
+$cream: #fafaf8;
 
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+
   h1 {
-    color: $lightblue;
+    color: $cream;
   }
   h2 {
-    color: $deepblue;
     font: {
       size: $h2size;
     }
@@ -26,7 +26,7 @@ body {
   }
 
   .button {
-    background-color: $darkpink;
+    background-color: $coral;
     border: {
       radius:28px;
     }
@@ -60,14 +60,14 @@ body {
     align-items: center;
     padding: 0 2%;
     background: {
-      color: $lightpink;
+      color: $teal;
     }
 
     p {
       font: {
-        size: 24px;
+        size: 30px;
       }
-      color: $deepblue;
+      color: $coral;
     }
 
     nav {
@@ -76,8 +76,9 @@ body {
       flex-direction: row;
       justify-content: space-between;
       a {
-        color: $deepblue;
+        color: $cream;
         text-decoration: none;
+        font-size: 20px;
         font-weight: bold;
       }
     }
@@ -87,7 +88,7 @@ body {
     flex-direction: row;
     justify-content: space-evenly;
     background: {
-      color: $lightblue;
+      color: $cream;
     }
     height: 37rem;
 
@@ -136,12 +137,12 @@ body {
       grow: 1;
     }
     background: {
-      color: $purple;
+      color: $cream;
     }
 
     h2 {
       width: 100%;
-      color: white;
+      color: $coral;
       text: {
         align: center;
       }
@@ -173,7 +174,7 @@ body {
 
   .dashboard {
     background: {
-      color: $purple;
+      color: $cream;
     }
     flex: {
       direction: column;
@@ -204,19 +205,19 @@ body {
         flex-direction: column;
         width: 30%;
         background: {
-          color: $darkpurple;
+          color: $teal;
         }
         .box_heading {
           display: flex;
           justify-content: center;
           align-items: center;
-          color: $darkpink;
+          color: $teal;
           font: {
             size: 2rem;
           }
         }
         .body {
-          color: $lightblue;
+          color: $cream;
           font: {
             size: 1rem;
           }
