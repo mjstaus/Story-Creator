@@ -77,7 +77,7 @@ module.exports = (db) => {
   //View all contributions for story
   router.get("/:id/contributions", (req, res) => {
     const queryString = `
-      SELECT contributions.user_id, users.name, count(contribution_votes.contribution_id) AS votes, contributions.content
+      SELECT contributions.*, users.name, count(contribution_votes.contribution_id) AS votes
         FROM contribution_votes
         RIGHT JOIN contributions ON contribution_id = contributions.id
         JOIN users ON contributions.user_id = users.id
@@ -88,17 +88,13 @@ module.exports = (db) => {
         ORDER BY votes DESC;`;
     db.query(queryString, [req.params.id])
       .then((data) => {
-        const templateVars = { contributions: data.rows };
-        console.log(templateVars);
+        const templateVars = { data: data.rows };
         res.render("stories/stories_contributions", templateVars);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
   });
-
-  //Show one
-  router.get("/contributions/:id", (req, res) => {});
 
   //Create new story//
   router.post("/new", (req, res) => {
@@ -123,34 +119,33 @@ module.exports = (db) => {
       });
   });
 
-  //Edit a story !!! NOT WORKING YET !!!
-  // router.post("/:id", (req, res) => {
-  //    // const userId = req.session.userId;
-  //    const { title, initialContent } = req.body;
+  //ACCEPT CONTRIBUTION
+  router.post("/contributions/:id", (req, res) => {
+    const queryParams = [Number(req.params.id)];
 
-  //    const queryParams = [title, initialContent];
-  //    const queryString = `
-  //          UPDATE stories
-  //          SET (title, initial_content)
-  //          VALUES ($1, $2)
-  //          WHERE id = ${req.params}
-  //          RETURNING *;
-  //        `;
-  //      const query = {
-  //        text: queryString,
-  //        values: queryParams,
-  //      };
+    const queryString2 = `
+      UPDATE contributions
+        SET accepted = TRUE
+        WHERE id = $1
+        RETURNING *;
+           `;
+    const queryString1 = `
+      UPDATE contributions
+        SET archived = TRUE
+        WHERE id != $1
+        AND accepted = FALSE
+        RETURNING *;`
 
-  //    db.query(query)
-  //      .then((data) => {
-  //        const templateVars = { story: data.rows };
-  //        console.log(templateVars);
-  //        res.redirect(`/`); //redirect to user's stories vs. show page for newly added story
-  //      })
-  //      .catch((err) => {
-  //        res.status(500).json({ error: err.message });
-  //      });
-  // });
+    db.query(queryString2, queryParams)
+      .then(db.query(queryString1, queryParams))
+      .then((data) => {
+        console.log("query2", data.rows)
+        res.redirect(`/stories/${data.rows[0].story_id}/contributions`);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
 
   //CREATE NEW CONTRIBUTION
   router.post("/:id/contributions", (req, res) => {
@@ -166,41 +161,15 @@ module.exports = (db) => {
     const query = {
       text: queryString,
       values: queryParams,
-    };
+    }
     db.query(query)
       .then((data) => {
-        console.log(req.params.id);
-        res.redirect(`/stories/${data.rows[0].story_id}/contributions`);
+        res.redirect(`/stories/${story_id}/contributions`);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
   });
 
-  // router.post("/:id/delete", (req, res) => {
-  //   res.send("Delete story");
-  // });
-
-  router.post("/contributions/:id", (req, res) => {
-    const contributionId = Number(req.params.id);
-
-    const queryString = `
-      UPDATE contributions
-        SET (accepted)
-        WHERE accepted = TRUE
-        RETURNING *;
-           `;
-    db.query(query)
-      .then((data) => {
-        console.log(data.rows)
-        res.redirect(`/stories/${data.rows[0].story_id}/contributions`);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
-  //Accepeted = true for accepted contribution
-
-  // router.post()
   return router;
 };
