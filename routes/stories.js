@@ -100,7 +100,10 @@ module.exports = (db) => {
       });
   });
 
-  //Create new story//
+  ///////////// POST ROUTES /////////////////
+  ///////////////////////////////////////////
+
+  //CREATE A NEW STORY
   router.post("/new", (req, res) => {
     const { title, initialContent } = req.body;
     const queryParams = [title, initialContent];
@@ -115,7 +118,7 @@ module.exports = (db) => {
 
     db.query(query)
       .then((data) => {
-        res.redirect(`/stories/${data.rows[0].id}`); //redirect to show page for newly created story
+        res.redirect(`/stories/${data.rows[0].id}`);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -148,7 +151,34 @@ module.exports = (db) => {
       });
   });
 
-    //Finalize Story
+  // UPVOTE CONTRIBUTION
+  router.post("/contributions/:id/vote", (req, res) => {
+    const queryParams = [Number(req.params.id)];
+    const queryParam = `
+      SELECT story_id
+        FROM contributions
+        WHERE id = $1
+        RETURNING *`
+
+    const queryString = `
+        INSERT INTO contribution_votes (user_id, contribution_id, story_id)
+        VALUES (1, $1, (SELECT story_id
+          FROM contributions
+          WHERE id = $1))
+        RETURNING *;
+      `;
+
+    db.query(queryString, queryParams)
+      .then((data) => {
+        console.log(data.rows)
+        res.redirect(`/stories/${data.rows[0].story_id}`);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+    //FINALIZE STORY
     router.post("/:id", (req, res) => {
       const queryParams = [Number(req.params.id)];
       const queryString = `
@@ -193,6 +223,7 @@ module.exports = (db) => {
         res.status(500).json({ error: err.message });
       });
   });
+
 
   return router;
 };
