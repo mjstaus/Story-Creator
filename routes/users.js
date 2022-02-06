@@ -31,8 +31,7 @@ module.exports = (db) => {
     db.query(`
     SELECT *
       FROM contributions
-      WHERE user_id = $1
-      ORDER BY user_id DESC;
+      WHERE user_id = $1;
     `, [req.params.id])
       .then((data) => {
         const templateVars = { contributions: data.rows };
@@ -42,5 +41,21 @@ module.exports = (db) => {
         res.status(500).json({ error: err.message });
       });
   });
+
+  router.get("/:id/stories", (req, res) => {
+    db.query(`
+    SELECT *
+      FROM stories
+      WHERE user_id = $1;
+    `, [req.params.id])
+      .then((data) => {
+        const templateVars = { stories: data.rows };
+        console.log(templateVars)
+        res.render("users/users_stories", templateVars);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+    });
   return router;
 };
