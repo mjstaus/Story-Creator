@@ -9,7 +9,6 @@ module.exports = (db) => {
     db.query(queryString)
       .then((data) => {
         const templateVars = { stories: data.rows };
-        console.log(templateVars);
         res.render("stories/stories_index", templateVars);
       })
       .catch((err) => {
@@ -56,23 +55,29 @@ module.exports = (db) => {
   });
 
   //View one story
+
   router.get("/:id", (req, res) => {
-    const queryString = `
-      SELECT stories.*, contributions.content
-        FROM stories
-        JOIN contributions ON stories.id = contributions.story_id
-        WHERE id = $1
-        AND contributions.accepted = TRUE;`;
-    db.query(queryString, [req.params.id])
+
+    const queryString2 =
+      `SELECT contributions.content, contributions.user_id AS contributor, stories.*, users.name AS creator_name
+        FROM contributions
+        JOIN stories ON stories.id = contributions.story_id
+        JOIN users ON users.id = stories.user_id
+        WHERE story_id = $1
+        AND contributions.accepted = TRUE`
+
+    db.query(queryString2, [req.params.id])
+
       .then((data) => {
-        const templateVars = { stories: data.rows[0] };
-        console.log(templateVars);
+        const templateVars = { data: data.rows };
+        console.log(templateVars)
         res.render("stories/stories_show", templateVars);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
   });
+
 
   //View all contributions for story
   router.get("/:id/contributions", (req, res) => {
@@ -89,6 +94,7 @@ module.exports = (db) => {
     db.query(queryString, [req.params.id])
       .then((data) => {
         const templateVars = { data: data.rows };
+        console.log(templateVars)
         res.render("stories/stories_contributions", templateVars);
       })
       .catch((err) => {
@@ -123,24 +129,24 @@ module.exports = (db) => {
   router.post("/contributions/:id", (req, res) => {
     const queryParams = [Number(req.params.id)];
 
-    const queryString2 = `
+    const queryString1 = `
       UPDATE contributions
         SET accepted = TRUE
         WHERE id = $1
         RETURNING *;
            `;
-    const queryString1 = `
-      UPDATE contributions
-        SET archived = TRUE
-        WHERE id != $1
-        AND accepted = FALSE
-        RETURNING *;`
+    // const queryString2 = `
+    //   UPDATE contributions
+    //     SET archived = TRUE
+    //     WHERE id != $1
+    //     AND accepted = FALSE
+    //     RETURNING *;`
 
-    db.query(queryString2, queryParams)
-      .then(db.query(queryString1, queryParams))
+    db.query(queryString1, queryParams)
+      // .then(db.query(queryString2, queryParams))
       .then((data) => {
-        console.log("query2", data.rows)
-        res.redirect(`/stories/${data.rows[0].story_id}/contributions`);
+        console.log(data.rows)
+        res.redirect(`/stories/${data.rows[0].story_id}`);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -152,10 +158,10 @@ module.exports = (db) => {
     const { content } = req.body;
     const story_id = Number(req.params.id);
 
-    const queryParams = [1, story_id, content];
+    const queryParams = [story_id, content];
     const queryString = `
         INSERT INTO contributions (user_id, story_id, content)
-        VALUES ($1, $2, $3)
+        VALUES (1, $1, $2)
         RETURNING *;
       `;
     const query = {
