@@ -49,6 +49,9 @@
   <form action="/stories/contributions/<%=d.id%>" method="POST">
     <button>Accept Contribution</button>
   </form>
+  <form action="/stories/contributions/<%=d.id%>/vote" method="POST">
+    <button>Upvote Contribution</button>
+  </form>
 </div>
 <%} else { '' }; }%>
 
