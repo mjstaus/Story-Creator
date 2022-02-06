@@ -9,6 +9,7 @@ module.exports = (db) => {
     db.query(queryString)
       .then((data) => {
         const templateVars = { stories: data.rows };
+        console.log(templateVars)
         res.render("stories/stories_index", templateVars);
       })
       .catch((err) => {
@@ -133,17 +134,16 @@ module.exports = (db) => {
       UPDATE contributions
         SET accepted = TRUE
         WHERE id = $1
-        RETURNING *;
-           `;
-    // const queryString2 = `
-    //   UPDATE contributions
-    //     SET archived = TRUE
-    //     WHERE id != $1
-    //     AND accepted = FALSE
-    //     RETURNING *;`
+        RETURNING *;`;
+    const queryString2 = `
+      UPDATE contributions
+        SET archived = TRUE
+        WHERE id != $1
+        AND accepted = FALSE
+        RETURNING *;`
 
     db.query(queryString1, queryParams)
-      // .then(db.query(queryString2, queryParams))
+      .then(db.query(queryString2, queryParams))
       .then((data) => {
         console.log(data.rows)
         res.redirect(`/stories/${data.rows[0].story_id}`);
