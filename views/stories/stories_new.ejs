@@ -7,15 +7,13 @@
 <section class="new-story">
   <form action="/stories/new" method="POST">
     <div>
-      <label for="title">Choose a Title for your Story</label>
-    </div>
-    <div>
-      <input id="new-story-title" type="text" name="title" placeholder="Enter Story Title" required>
+      <label for="title">Story Title: </label>
+      <input id="new-story-title" type="text" name="title" placeholder="My Story Title" required>
     </div>
     <div>
       <label for="initialContent"></label>
       <textarea id="new-story-text" name="initialContent" placeholder="Once upon a time..." required></textarea>
-      <button id="new-story-btn" type="submit">Submit</button>
+      <button id="new-story-btn" role="button" type="submit">Publish</button>
     </div>
   </form>
 
