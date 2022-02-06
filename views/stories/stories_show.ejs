@@ -1,28 +1,63 @@
 <%-include("../partials/_header")%>
-<%-include("../partials/_navbar")%>
 
 <h1>Show one story</h1>
-  <ul><%= stories.title %></ul>
-  <ul><%= stories.initial_content %></ul>
 
-<!-- <h3>Edit Story</h3>
-  <form action="/stories/:id" method="POST">
-    <div>
-      <label for="title">New Title</label>
-      <input type="text" name="title" placeholder="<%= stories.title %>">
-      <label for="initialContent">Edit Story</label>
-      <input type="text" name="initialContent" placeholder="<%= stories.initial_content %>">
-      <button type="submit">Submit</button>
-    </div>
-  </form> -->
+<h3><%= data[0].title %></h3>
+<h3><%= data[0].creator_name %></h3>
 
-  <h3>Submit New Contribution</h3>
-  <form action="/stories/<%= stories.id %>/contributions" method="POST">
-    <div>
-      <label for="content">Write Contribution Here</label>
-      <input type="text" name="content" placeholder="What happens next?">
-      <button type="submit">Submit</button>
-    </div>
+<!-- Complete vs. incomplete icons -->
+<% if(!data[0].complete){%>
+<p>incomplete!</p>
+
+</form>
+<% } else if (data[0].complete) { %>
+<p>complete!</p>
+<%} else { '' }; %>
+
+<!-- Complete Story Button (If user = creator, hard coded to users.id 1) -->
+<% if(data[0].creator_id === "1"){%>
+  <form action="/stories/<%=data[0].id%>" method="POST">
+  <button>Finalize Story</button>
+  <% } else { '' }; %>
+
+<!-- Initial content -->
+<p><%= data[0].initial_content %></p>
+
+<!-- Accepted contributions -->
+<% for (let d of data) { if(d.accepted){%>
+<p><%= d.content%></p>
+<%} else { '' }; }%>
+
+<!-- Submit New Contribution -->
+
+<% if(!data[0].complete){%>
+<form action="/stories/<%=data[0].id%>/contributions" method="POST">
+  <div>
+    <label for="content">Write Contribution Here</label>
+    <input type="text" name="content" placeholder="What happens next?" />
+    <button type="submit">Submit</button>
+  </div>
+</form>
+<% } else { '' }; %>
+
+<!-- Pending Submissions -->
+
+<% for (let d of data) { if(d.content && !d.accepted && !d.archived){%>
+<div>
+  <p>contribution content:<%= d.content %></p>
+  <p>votes:<%= d.votes %></p>
+  <form action="/stories/contributions/<%=d.id%>" method="POST">
+    <button>Accept Contribution</button>
   </form>
+  <form action="/stories/contributions/<%=d.id%>/vote" method="POST">
+    <button>Upvote Contribution</button>
+  </form>
+</div>
+<%} else { '' }; }%>
+
+<!-- Do we actually need this page now that we have everything here? -->
+<a href="/stories/<%= data[0].id %>/contributions"
+  >See All pending contributions</a
+>
 
 <%-include("../partials/_footer")%>

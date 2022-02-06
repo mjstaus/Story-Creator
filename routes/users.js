@@ -9,31 +9,36 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
+  //Show dashboard for given user
   router.get("/:id/dashboard", (req, res) => {
     res.render("users/dashboard");
   });
+
+  //Show User's Stories
   router.get("/:id/stories", (req, res) => {
-    db.query(`
-    SELECT *
-    FROM stories
-    WHERE user_id = $1
-    ORDER BY id DESC;
-    `, [req.params.id])
+    const queryString = `
+      SELECT *
+        FROM stories
+        WHERE user_id = $1;`
+
+    db.query(queryString, [req.params.id])
       .then((data) => {
         const templateVars = { stories: data.rows };
+        console.log(templateVars)
         res.render("users/users_stories", templateVars);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
   });
+
+  //Show User's Contributions
   router.get("/:id/contributions", (req, res) => {
-    db.query(`
-    SELECT *
-      FROM contributions
-      WHERE user_id = $1
-      ORDER BY user_id DESC;
-    `, [req.params.id])
+    const queryString =
+      `SELECT *
+        FROM contributions
+        WHERE user_id = $1;`
+    db.query(queryString, [req.params.id])
       .then((data) => {
         const templateVars = { contributions: data.rows };
         res.render("users/users_contributions", templateVars);
@@ -42,5 +47,7 @@ module.exports = (db) => {
         res.status(500).json({ error: err.message });
       });
   });
+
+
   return router;
 };

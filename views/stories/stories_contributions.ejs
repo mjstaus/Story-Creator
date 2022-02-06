@@ -1,15 +1,22 @@
 <%-include("../partials/_header")%>
-<%-include("../partials/_navbar")%>
 
-<h1>Show all contributions for one story</h1>
+<h1>Show all pending contributions for one story</h1>
 
-<% for (let contribution of contributions) { %>
-  <ul><%= contribution.name %></ul>
-  <ul><%= contribution.content %></ul>
-  <% } %>
+<% for (let d of data) { %>
+  <div>
+    <p>contributor name:<%= d.name %></p>
+    <p>contribution content:<%= d.content %></p>
+    <p>upvotes:<%= d.votes %></p>
+    <p>contribution id:<%= d.id %></p>
+    <p>story id:<%= d.story_id %></p>
+    <form action="/stories/contributions/<%=d.id%>" method="POST">
+      <button>Accept Story</button>
+    </form>
+    <% } %>
+  </div>
 
   <h3>Submit New Contribution</h3>
-  <form action="/stories/<%= contributions.story_id %>/contributions" method="POST">
+  <form action="/stories/<%=data[0].story_id%>/contributions" method="POST">
     <div>
       <label for="content">Write Contribution Here</label>
       <input type="text" name="content" placeholder="What happens next?">

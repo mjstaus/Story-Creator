@@ -1,13 +1,20 @@
 <%-include("../partials/_header")%>
-<%-include("../partials/_navbar")%>
 
 <section class="discover">
   <div class="container">
   <h2>Discover Stories</h2>
 <% for (let story of stories) { %>
     <div class="storybox">
-      <p><%= story.title %></p>
-      <img>
+      <a href="/stories/<%=story.id%>"><%=story.title%></a>
+
+      <% if(!story.complete){%>
+        <p>incomplete - add image here</p>
+      <% }
+      else if (story.complete) { %>
+        <p>incomplete - add image here</p>
+      <%}
+      else { '' }; %>
+
     </div>
   <% } %>
   </div>
