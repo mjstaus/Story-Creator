@@ -55,21 +55,18 @@ module.exports = (db) => {
       });
   });
 
-  //View one story
-
+  //View one story, accepted contributions, and pending contributions
   router.get("/:id", (req, res) => {
     const queryString =
-      `SELECT contributions.*, stories.title, stories.initial_content, users.name AS creator_name, count(contribution_votes.contribution_id) AS votes
+      `SELECT contributions.*, stories.*, users.name AS creator_name, count(contribution_votes.contribution_id) AS votes
         FROM users
         JOIN stories ON users.id = stories.user_id
         LEFT JOIN contributions ON stories.id = contributions.story_id
         LEFT JOIN contribution_votes ON contributions.id = contribution_votes.contribution_id
         WHERE stories.id = $1
-        GROUP BY contributions.id, stories.title, stories.initial_content, creator_name;`
-
+        GROUP BY contributions.id, stories.id, creator_name;`;
 
     db.query(queryString, [req.params.id])
-
       .then((data) => {
         const templateVars = { data: data.rows };
         console.log(templateVars)
@@ -106,7 +103,6 @@ module.exports = (db) => {
   //Create new story//
   router.post("/new", (req, res) => {
     const { title, initialContent } = req.body;
-
     const queryParams = [title, initialContent];
     const queryString = `
           INSERT INTO stories (user_id, title, initial_content)
@@ -129,7 +125,6 @@ module.exports = (db) => {
   //ACCEPT CONTRIBUTION
   router.post("/contributions/:id", (req, res) => {
     const queryParams = [Number(req.params.id)];
-
     const queryString1 = `
       UPDATE contributions
         SET accepted = TRUE
@@ -140,7 +135,7 @@ module.exports = (db) => {
         SET archived = TRUE
         WHERE id != $1
         AND accepted = FALSE
-        RETURNING *;`
+        RETURNING *;`;
 
     db.query(queryString1, queryParams)
       .then(db.query(queryString2, queryParams))
@@ -152,6 +147,28 @@ module.exports = (db) => {
         res.status(500).json({ error: err.message });
       });
   });
+
+    //Finalize Story
+    router.post("/:id", (req, res) => {
+      const queryParams = [Number(req.params.id)];
+      const queryString = `
+        UPDATE stories
+          SET complete = TRUE
+          WHERE id = $1
+          RETURNING *;`;
+      const query = {
+        text: queryString,
+        values: queryParams,
+      }
+      db.query(query)
+        .then((data) => {
+          console.log(data.rows)
+          res.redirect(`/stories/${data.rows[0].id}`);
+        })
+        .catch((err) => {
+          res.status(500).json({ error: err.message });
+        });
+    });
 
   //CREATE NEW CONTRIBUTION
   router.post("/:id/contributions", (req, res) => {
@@ -170,7 +187,7 @@ module.exports = (db) => {
     }
     db.query(query)
       .then((data) => {
-        res.redirect(`/stories/${story_id}/contributions`);
+        res.redirect(`/stories/${story_id}`);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
