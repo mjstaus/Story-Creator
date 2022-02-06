@@ -7,9 +7,30 @@
   <h3><%= data[0].creator_name %></h3>
   <p><%= data[0].initial_content %></p>
 
-  <% for (let d of data) { %>
-  <p><%= d.content %></p>
-  <% } %>
+  <% for (let d of data) {
+    if(d.accepted){%>
+      <p><%= d.content%></p>
+      <%}
+    else { '' };
+  }%>
+
+  <h3>Pending Submissions</h3>
+
+  <% for (let d of data) {
+    if(!d.accepted && !d.archived){%>
+      <div>
+        <!-- <p>contributor name:<%= d.name %></p> -->
+        <p>contribution content:<%= d.content %></p>
+        <!-- <p>upvotes:<%= d.votes %></p> -->
+        <p>contribution id:<%= d.id %></p>
+        <p>votes:<%= d.votes %></p>
+        <form action="/stories/contributions/<%=d.id%>" method="POST">
+          <button>Accept Story</button>
+        </form>
+      </div>
+      <%}
+    else { '' };
+  }%>
 
   <h3>Submit New Contribution</h3>
   <form action="/stories/<%=data[0].id%>/contributions" method="POST">
