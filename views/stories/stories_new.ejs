@@ -10,14 +10,19 @@
       <label for="title">Choose a Title for your Story</label>
     </div>
     <div>
-      <input id="new-story-title" type="text" name="title" placeholder="Enter Story Title">
+      <input id="new-story-title" type="text" name="title" placeholder="Enter Story Title" required>
     </div>
     <div>
       <label for="initialContent"></label>
-      <textarea id="new-story-text" name="initialContent" placeholder="Once upon a time..."></textarea>
+      <textarea id="new-story-text" name="initialContent" placeholder="Once upon a time..." required></textarea>
       <button id="new-story-btn" type="submit">Submit</button>
     </div>
   </form>
+
+  <div class="error-messages">
+    <label id="title-empty">Your story needs a title</label>
+    <label id="content-empty">This section cannot be empty</label>
+  </div>
 </section>
 
 
