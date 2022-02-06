@@ -24,18 +24,16 @@ h2 {
   border-top: 0px;
   border-right: 0px;
   border-left: 0px;
-  text-align: center;
-
   width: 500px;
   margin-top: 10px;
   margin-bottom: 30px;
   padding: 20px;
   background-color:transparent;
   border-bottom:2px solid black;
+  text-align: left;
   color: rgba(87, 85, 85, 0.637);
   font-family:Courier, monospace;
   height:28px;
-
 }
 
 #new-story-text {
@@ -64,8 +62,36 @@ h2 {
   border-top:1px solid #FFF;
   border-bottom:1px solid #FFF;
   border-style:hidden;
+
+  &:focus {
+    outline: none;
+  }
 }
 
-#new-story-text:focus {
-  outline: none;
+#new-story-btn {
+  background-color: $coral;
+  border: {
+    radius:28px;
+  }
+  border:1px solid #ffffff;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font: {
+    family: Arial;
+    size: 17px;
+    weight: bold;
+  }
+  padding:16px 31px;
+  text: {
+    decoration: none;
+    align: center;
+  }
+}
+#new-story-btn:hover {
+  background-color:#a17a95;
+}
+#new-story-btn:active {
+  position:relative;
+  top:1px;
 }
