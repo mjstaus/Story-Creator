@@ -57,16 +57,17 @@ module.exports = (db) => {
   //View one story
 
   router.get("/:id", (req, res) => {
+    const queryString =
+      `SELECT contributions.*, stories.title, stories.initial_content, users.name AS creator_name, count(contribution_votes.contribution_id) AS votes
+        FROM users
+        JOIN stories ON users.id = stories.user_id
+        LEFT JOIN contributions ON stories.id = contributions.story_id
+        LEFT JOIN contribution_votes ON contributions.id = contribution_votes.contribution_id
+        WHERE stories.id = $1
+        GROUP BY contributions.id, stories.title, stories.initial_content, creator_name;`
 
-    const queryString2 =
-      `SELECT contributions.content, contributions.user_id AS contributor, stories.*, users.name AS creator_name
-        FROM contributions
-        JOIN stories ON stories.id = contributions.story_id
-        JOIN users ON users.id = stories.user_id
-        WHERE story_id = $1
-        AND contributions.accepted = TRUE`
 
-    db.query(queryString2, [req.params.id])
+    db.query(queryString, [req.params.id])
 
       .then((data) => {
         const templateVars = { data: data.rows };
@@ -78,8 +79,7 @@ module.exports = (db) => {
       });
   });
 
-
-  //View all contributions for story
+  //View all pending contributions for story
   router.get("/:id/contributions", (req, res) => {
     const queryString = `
       SELECT contributions.*, users.name, count(contribution_votes.contribution_id) AS votes
