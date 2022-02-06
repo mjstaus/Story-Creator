@@ -2,27 +2,24 @@
 <%-include("../partials/_navbar")%>
 
 <h1>Show one story</h1>
-  <ul><%= stories.title %></ul>
-  <ul><%= stories.initial_content %></ul>
 
-<!-- <h3>Edit Story</h3>
-  <form action="/stories/:id" method="POST">
-    <div>
-      <label for="title">New Title</label>
-      <input type="text" name="title" placeholder="<%= stories.title %>">
-      <label for="initialContent">Edit Story</label>
-      <input type="text" name="initialContent" placeholder="<%= stories.initial_content %>">
-      <button type="submit">Submit</button>
-    </div>
-  </form> -->
+  <h3><%= data[0].title %></h3>
+  <h3><%= data[0].creator_name %></h3>
+  <p><%= data[0].initial_content %></p>
+
+  <% for (let d of data) { %>
+  <p><%= d.content %></p>
+  <% } %>
 
   <h3>Submit New Contribution</h3>
-  <form action="/stories/<%= stories.id %>/contributions" method="POST">
+  <form action="/stories/<%=data[0].id%>/contributions" method="POST">
     <div>
       <label for="content">Write Contribution Here</label>
       <input type="text" name="content" placeholder="What happens next?">
       <button type="submit">Submit</button>
     </div>
   </form>
+
+  <a href="/stories/<%= data[0].id %>/contributions">All pending contributions</a>
 
 <%-include("../partials/_footer")%>
