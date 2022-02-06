@@ -44,10 +44,7 @@
 
 <% for (let d of data) { if(d.content && !d.accepted && !d.archived){%>
 <div>
-  <!-- <p>contributor name:<%= d.name %></p> -->
   <p>contribution content:<%= d.content %></p>
-  <!-- <p>upvotes:<%= d.votes %></p> -->
-  <p>contribution id:<%= d.id %></p>
   <p>votes:<%= d.votes %></p>
   <form action="/stories/contributions/<%=d.id%>" method="POST">
     <button>Accept Contribution</button>
