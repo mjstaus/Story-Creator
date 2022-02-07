@@ -41,7 +41,6 @@
 <% } else { '' }; %>
 
 <!-- Pending Submissions -->
-
 <% for (let d of data) { if(d.content && !d.accepted && !d.archived){%>
 <div>
   <p>contribution content:<%= d.content %></p>
@@ -54,10 +53,5 @@
   </form>
 </div>
 <%} else { '' }; }%>
-
-<!-- Do we actually need this page now that we have everything here? -->
-<a href="/stories/<%= data[0].id %>/contributions"
-  >See All pending contributions</a
->
 
 <%-include("../partials/_footer")%>
