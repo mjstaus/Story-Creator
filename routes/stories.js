@@ -9,7 +9,6 @@ module.exports = (db) => {
     db.query(queryString)
       .then((data) => {
         const templateVars = { stories: data.rows };
-        console.log(templateVars)
         res.render("stories/stories_index", templateVars);
       })
       .catch((err) => {
@@ -58,7 +57,7 @@ module.exports = (db) => {
   //View one story, accepted contributions, and pending contributions
   router.get("/:id", (req, res) => {
     const queryString =
-      `SELECT contributions.*, stories.*, users.name AS creator_name, count(contribution_votes.contribution_id) AS votes
+      `SELECT contributions.*, contributions.id AS contribution_id, stories.*, users.name AS creator_name, count(contribution_votes.contribution_id) AS votes
         FROM users
         JOIN stories ON users.id = stories.user_id
         LEFT JOIN contributions ON stories.id = contributions.story_id
@@ -92,7 +91,6 @@ module.exports = (db) => {
     db.query(queryString, [req.params.id])
       .then((data) => {
         const templateVars = { data: data.rows };
-        console.log(templateVars)
         res.render("stories/stories_contributions", templateVars);
       })
       .catch((err) => {
@@ -143,7 +141,6 @@ module.exports = (db) => {
     db.query(queryString1, queryParams)
       .then(db.query(queryString2, queryParams))
       .then((data) => {
-        console.log(data.rows)
         res.redirect(`/stories/${data.rows[0].story_id}`);
       })
       .catch((err) => {
@@ -154,19 +151,12 @@ module.exports = (db) => {
   // UPVOTE CONTRIBUTION
   router.post("/contributions/:id/vote", (req, res) => {
     const queryParams = [Number(req.params.id)];
-    const queryParam = `
-      SELECT story_id
-        FROM contributions
-        WHERE id = $1
-        RETURNING *`
-
     const queryString = `
         INSERT INTO contribution_votes (user_id, contribution_id, story_id)
         VALUES (1, $1, (SELECT story_id
           FROM contributions
           WHERE id = $1))
-        RETURNING *;
-      `;
+        RETURNING *;`;
 
     db.query(queryString, queryParams)
       .then((data) => {
@@ -192,7 +182,6 @@ module.exports = (db) => {
       }
       db.query(query)
         .then((data) => {
-          console.log(data.rows)
           res.redirect(`/stories/${data.rows[0].id}`);
         })
         .catch((err) => {
