@@ -17,13 +17,14 @@ module.exports = (db) => {
   //Show User's Stories
   router.get("/:id/stories", (req, res) => {
     const queryString = `
-      SELECT *
+      SELECT stories.*, users.name, users.avatar
         FROM stories
+        JOIN users ON stories.user_id = users.id
         WHERE user_id = $1;`
 
     db.query(queryString, [req.params.id])
       .then((data) => {
-        const templateVars = { stories: data.rows };
+        const templateVars = { data: data.rows };
         console.log(templateVars)
         res.render("users/users_stories", templateVars);
       })
