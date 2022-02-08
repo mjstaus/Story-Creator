@@ -45,7 +45,7 @@
 <div>
   <p>contribution content:<%= d.content %></p>
   <p>votes:<%= d.votes %></p>
-  <form action="/stories/contributions/<%=d.id%>" method="POST">
+  <form action="/stories/contributions/<%=d.contribution_id%>" method="POST">
     <button>Accept Contribution</button>
   </form>
   <form action="/stories/contributions/<%=d.contribution_id%>/vote" method="POST">
