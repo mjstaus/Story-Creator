@@ -10,13 +10,12 @@
       <a href="/stories/<%=story.id%>"><%=story.title%></a>
 
       <% if(!story.complete){%>
-        <p>incomplete - add image here</p>
-      <% }
-      else if (story.complete) { %>
-        <p>complete - add image here</p>
+        <img src="/images/closed_book.png">
+        <% }
+        else if (story.complete) { %>
+          <img src="/images/open_book.png">
       <%}
       else { '' }; %>
-
     </div>
   <% } %>
   </div>
