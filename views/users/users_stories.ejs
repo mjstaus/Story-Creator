@@ -1,14 +1,20 @@
-<%-include("../partials/_header")%>
+<%-include("../partials/_header")-%>
 
 <div class="main">
 
-<h1>My Stories</h1>
-<% for (let story of stories) { %>
-  <div>
-    <ul><%= story.title %></ul>
-    <ul><%= story.initial_content %></ul>
+  <div class="user_header">
+    <h1><%= data[0].name %>'s Stories</h1>
+    <img src= <%= data[0].avatar %>>
   </div>
-<% } %>
+
+  <div class="story_card">
+    <% for (let d of data) { %>
+      <div>
+        <ul><%= d.title %></ul>
+        <ul><%= d.initial_content %></ul>
+      </div>
+    <% } %>
+  </div>
 </div>
 
 <%-include("../partials/_footer")%>
