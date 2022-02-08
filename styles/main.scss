@@ -6,6 +6,27 @@ $teal: #0f8a7a;
 $coral: #fe6d73;
 $cream: #fafaf8;
 
+@mixin button {
+  background-color: $coral;
+  border: {
+    radius: 28px;
+  }
+  border: 1px solid #ffffff;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font: {
+    family: Arial;
+    size: 17px;
+    weight: bold;
+  }
+  padding: 16px 31px;
+  text: {
+    decoration: none;
+    align: center;
+  }
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -18,35 +39,26 @@ body {
     font: {
       size: $h2size;
     }
+    text-align: center;
+    color: $yellow;
+    text-shadow: 4px 2px 0px #b0797e, 6px 5px 0px #00000026;
   }
   p {
     font: {
       size: 1.5rem;
+      text-decoration: none;
     }
   }
-
+  a:hover {
+    transform: scale(1.1);
+  }
   .button {
-    background-color: $coral;
-    border: {
-      radius:28px;
-    }
-    border:1px solid #ffffff;
-    display:inline-block;
-    cursor:pointer;
-    color:#ffffff;
-    font: {
-      family: Arial;
-      size: 17px;
-      weight: bold;
-    }
-    padding:16px 31px;
-    text: {
-      decoration: none;
-      align: center;
-    }
+    @include button();
   }
   .button:hover {
-    background-color:#a17a95;
+    background-color: $deepblue;
+    transform: scale(1.05);
+    border-radius: 10px;
   }
   .button:active {
     position:relative;
@@ -136,13 +148,9 @@ body {
       direction: column;
       grow: 1;
     }
-    background: {
-      color: $cream;
-    }
-
     h2 {
       width: 100%;
-      color: $coral;
+      color: $yellow;
       text: {
         align: center;
       }
@@ -160,37 +168,43 @@ body {
           radius: 15px;
         }
         background: {
-          color: rgb(255, 255, 107);
+          color: $deepblue;
         }
-        p {
-          color: black;
+        a {
+          color: $cream;
           font: {
             weight: bold;
           }
+          text-decoration: none;
         }
       }
     }
   }
 
   .dashboard {
-    background: {
-      color: $cream;
-    }
     flex: {
       direction: column;
       grow: 1;
     }
     display: flex;
-    justify-content: center;
     align-items: center;
+    a {
+      text-decoration: none;
+    }
+    text: {
+      align: center;
+    }
     .heading {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top: -8%;
-      h1 {
+      margin-top: 15px;
+      h2 {
         font: {
-          size: 3rem;
+          size: 4rem;
+          text-align: center;
+          color: #FFCB77;
+          text-shadow: 2px 1px 0px #b0797e, 4px 3px 0px rgba(0,0,0,0.15);
         }
       }
     }
@@ -199,22 +213,24 @@ body {
       flex-direction: row;
       justify-content: space-evenly;
       margin: 1% 5%;
-      min-height: 300px;
+      min-height: 260px;
+      width: 1000px;
       .action {
         display: flex;
         flex-direction: column;
         width: 30%;
-        background: {
-          color: $teal;
-        }
+        border-radius: 8%;
+        background: linear-gradient( to left, $deepblue 25%, $teal 25% 50%, $yellow 50% 75%, $coral 75%);
+
         .box_heading {
           display: flex;
           justify-content: center;
           align-items: center;
-          color: $teal;
-          font: {
-            size: 2rem;
-          }
+          margin-top: 40px;
+          color: $cream;
+          size: 2rem;
+          text-align: center;
+          background-color: $blue;
         }
         .body {
           color: $cream;
@@ -226,5 +242,80 @@ body {
         }
       }
     }
+  }
+  .new-story {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family:Courier, monospace;
+    font-size: x-large;
+
+    div {
+      width: 700px;
+    }
+  }
+  #new-story-title {
+    color: #201e1e;
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    width: 500px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color:transparent;
+    border-bottom:2px solid black;
+    text-align: left;
+    font-family:Courier, monospace;
+    height:28px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+  #new-story-text {
+    width: 700px;
+    height: 600px;
+    padding: 10px;
+    vertical-align: text-bottom;
+    overflow:hidden;
+    background-color:#FFF;
+    color:#222;
+    font-family:Courier, monospace;
+    font-weight:normal;
+    font-size:24px;
+    resize:none;
+    line-height:40px;
+    padding-left:100px;
+    padding-right:100px;
+    padding-top:45px;
+    padding-bottom:34px;
+    background-image:url(https://static.tumblr.com/maopbtg/E9Bmgtoht/lines.png), url(https://static.tumblr.com/maopbtg/nBUmgtogx/paper.png);
+    background-repeat:repeat-y, repeat;
+    -webkit-border-radius:12px;
+    border-radius:12px;
+    -webkit-box-shadow: 0px 2px 14px #000;
+    box-shadow: 0px 2px 14px #000;
+    border-top:1px solid #FFF;
+    border-bottom:1px solid #FFF;
+    border-style:hidden;
+
+    &:focus {
+      outline: none;
+    }
+  }
+  #new-story-btn {
+    @include button();
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  #new-story-btn:hover {
+    background-color: $deepblue;
+    transform: scale(1.05);
+    border-radius: 10px;
+  }
+  #new-story-btn:active {
+    position:relative;
+    top:1px;
   }
 }
