@@ -10,10 +10,10 @@
       <a href="/stories/<%=story.id%>"><%=story.title%></a>
 
       <% if(!story.complete){%>
-        <img src="/images/closed_book.png">
+        <img src="/images/open_book.png">
         <% }
         else if (story.complete) { %>
-          <img src="/images/open_book.png">
+          <img src="/images/closed_book.png">
       <%}
       else { '' }; %>
     </div>
