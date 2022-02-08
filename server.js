@@ -58,7 +58,6 @@ app.get("/", (req, res) => {
   db.query(`SELECT * FROM stories LIMIT 9;`)
       .then((data) => {
         const templateVars = { stories: data.rows };
-        console.log(templateVars)
         res.render("index", templateVars);
       })
       .catch((err) => {

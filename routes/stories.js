@@ -68,7 +68,6 @@ module.exports = (db) => {
     db.query(queryString, [req.params.id])
       .then((data) => {
         const templateVars = { data: data.rows };
-        console.log(templateVars)
         res.render("stories/stories_show", templateVars);
       })
       .catch((err) => {
@@ -160,7 +159,6 @@ module.exports = (db) => {
 
     db.query(queryString, queryParams)
       .then((data) => {
-        console.log(data.rows)
         res.redirect(`/stories/${data.rows[0].story_id}`);
       })
       .catch((err) => {
