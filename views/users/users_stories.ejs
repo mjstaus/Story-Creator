@@ -1,20 +1,26 @@
-<%-include("../partials/_header")-%>
+<%-include("../partials/_header")%>
 
 <div class="main">
 
+<div class="user_stories">
   <div class="user_header">
-    <h1><%= data[0].name %>'s Stories</h1>
-    <img src= <%= data[0].avatar %>>
+    <h2><%= data[0].name %>'s Stories</h2>
   </div>
 
-  <div class="story_card">
-    <% for (let d of data) { %>
-      <div>
-        <ul><%= d.title %></ul>
-        <ul><%= d.initial_content %></ul>
-      </div>
+  <% for (let d of data) { %>
+    <div class="storybox_large">
+      <% if(!d.complete){%>
+        <img src="/images/open_book.png">
+        <% }
+        else if (d.complete) { %>
+          <img src="/images/closed_book.png">
+      <%}
+      else { '' }; %>
+      <a href="/stories/<%=d.id%>"><%= d.title %></a>
+    </div>
     <% } %>
-  </div>
+</div>
+</div>
 </div>
 
 <%-include("../partials/_footer")%>

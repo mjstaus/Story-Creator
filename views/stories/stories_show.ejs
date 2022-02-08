@@ -2,10 +2,16 @@
 
 <div class="main">
 
-<h1>Show one story</h1>
+<div class="container">
+  <div class="story_header">
+    <h1><%= data[0].title %></h1>
 
-<h3><%= data[0].title %></h3>
-<h3><%= data[0].creator_name %></h3>
+    <h3>Author:</h3>
+    <div class="story_author"></div>
+      <img src= <%= data[0].avatar %>>
+      <p><%= data[0].creator_name %></p>
+    </div>
+  </div>
 
 <!-- Complete vs. incomplete icons -->
 <% if(!data[0].complete){%>
@@ -55,6 +61,8 @@
   </form>
 </div>
 <%} else { '' }; }%>
+
+</div>
 
 </div>
 
