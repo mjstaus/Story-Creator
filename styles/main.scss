@@ -54,6 +54,11 @@ body {
   }
   .button {
     @include button();
+    -webkit-transition: transform ease-in-out 400ms;
+    -o-transition: transform ease-in-out 400ms;
+    -ms-transition: transform ease-in-out 400ms;
+    -moz-transition: transform ease-in-out 400ms;
+    transition: transform ease-in-out 400ms;
   }
   .button:hover {
     background-color: $deepblue;
@@ -64,6 +69,8 @@ body {
     position: relative;
     top: 1px;
   }
+
+  /// NAV BAR ///
 
   header {
     display: flex;
@@ -83,11 +90,14 @@ body {
 
     .nav-logo {
       display: flex;
-      p {
+      a {
         font: {
           size: 30px;
         }
         color: $yellow;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 10px;
       }
       img {
         width: 60px;
@@ -107,9 +117,12 @@ body {
     }
   }
 
+  // MAIN CONTAINER //
+
   .main {
     padding-top: 100px;
 
+    // HOME PAGE //
     .hero {
       padding-top: 5%;
       display: flex;
@@ -161,6 +174,11 @@ body {
           font: {
             size: 1.1rem;
           }
+          -webkit-transition: transform ease-in-out 400ms;
+          -o-transition: transform ease-in-out 400ms;
+          -ms-transition: transform ease-in-out 400ms;
+          -moz-transition: transform ease-in-out 400ms;
+          transition: transform ease-in-out 400ms;
         }
       }
 
@@ -172,7 +190,7 @@ body {
         }
       }
     }
-
+    /// DISCOVER PAGE ///
     .discover {
       display: flex;
       flex: {
@@ -217,7 +235,7 @@ body {
         }
       }
 
-/// USER'S STORIES ///
+      /// USER'S STORIES ///
     }
     .user_stories {
       display: flex;
@@ -271,7 +289,7 @@ body {
       }
     }
 
-//// DASHBOARD ////
+    //// DASHBOARD ////
 
     .dashboard {
       flex: {
@@ -342,7 +360,7 @@ body {
       }
     }
 
-/// NEW STORY ///
+    /// NEW STORY ///
     .new-story {
       display: flex;
       justify-content: center;
@@ -409,6 +427,11 @@ body {
       @include button();
       margin-top: 20px;
       margin-bottom: 20px;
+      -webkit-transition: transform ease-in-out 400ms;
+      -o-transition: transform ease-in-out 400ms;
+      -ms-transition: transform ease-in-out 400ms;
+      -moz-transition: transform ease-in-out 400ms;
+      transition: transform ease-in-out 400ms;
     }
     #new-story-btn:hover {
       background-color: $deepblue;
