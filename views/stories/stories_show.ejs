@@ -23,7 +23,7 @@
 <%} else { '' }; %>
 
 <!-- Complete Story Button (If user = creator, hard coded to users.id 1) -->
-<% if(data[0].creator_id === "1"){%>
+<% if(data[0].user_id === 1){%>
   <form action="/stories/<%=data[0].id%>" method="POST">
   <button>Finalize Story</button>
   <% } else { '' }; %>
@@ -53,12 +53,14 @@
 <div>
   <p>contribution content:<%= d.content %></p>
   <p>votes:<%= d.votes %></p>
-  <form action="/stories/contributions/<%=d.contribution_id%>" method="POST">
-    <button>Accept Contribution</button>
-  </form>
   <form action="/stories/contributions/<%=d.contribution_id%>/vote" method="POST">
     <button>Upvote Contribution</button>
   </form>
+  <% if(data[0].user_id === 1){%>
+    <form action="/stories/contributions/<%=d.contribution_id%>" method="POST">
+      <button>Accept Contribution</button>
+    </form>
+  <% } else { '' }; %>
 </div>
 <%} else { '' }; }%>
 
