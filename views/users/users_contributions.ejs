@@ -1,10 +1,14 @@
 <%-include("../partials/_header")%>
 
+<div class="main">
+
 <h1>My Story Contributions</h1>
 <% for (let contribution of contributions) { %>
   <div>
     <ul><%= contribution.content %></ul>
   </div>
 <% } %>
+
+</div>
 
 <%-include("../partials/_footer")%>

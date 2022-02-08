@@ -1,11 +1,14 @@
 <%-include("../partials/_header")%>
 
-<h1>Show user's stories</h1>
+<div class="main">
+
+<h1>My Stories</h1>
 <% for (let story of stories) { %>
   <div>
     <ul><%= story.title %></ul>
     <ul><%= story.initial_content %></ul>
   </div>
 <% } %>
+</div>
 
 <%-include("../partials/_footer")%>
