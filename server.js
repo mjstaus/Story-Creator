@@ -35,7 +35,7 @@ app.use(
   })
   );
 
-  app.use(express.static("public"));
+app.use(express.static("public"));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -62,10 +62,6 @@ app.get("/", (req, res) => {
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
-});
-
-app.get("/dashboard", (req, res) => {
-  res.render("dashboard");
 });
 
 app.listen(PORT, () => {
