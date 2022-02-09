@@ -15,17 +15,18 @@
 
 <!-- Complete vs. incomplete icons -->
 <% if(!data[0].complete){%>
-<p>incomplete!</p>
+  <img src="/images/open_book.png">
 
-</form>
+
 <% } else if (data[0].complete) { %>
-<p>complete!</p>
+  <img src="/images/closed_book.png">
 <%} else { '' }; %>
 
 <!-- Complete Story Button (If user = creator, hard coded to users.id 1) -->
-<% if(data[0].user_id === 1){%>
+<% if(data[0].user_id === 1 && !data[0].complete){%>
   <form action="/stories/<%=data[0].id%>" method="POST">
   <button>Finalize Story</button>
+  </form>
   <% } else { '' }; %>
 
 <!-- Initial content -->
@@ -33,7 +34,7 @@
 
 <!-- Accepted contributions -->
 <% for (let d of data) { if(d.accepted){%>
-<p><%= d.content%></p>
+  <p><%= d.content%></p>
 <%} else { '' }; }%>
 
 <!-- Submit New Contribution -->
@@ -49,14 +50,19 @@
 <% } else { '' }; %>
 
 <!-- Pending Submissions -->
-<% for (let d of data) { if(d.content && !d.accepted && !d.archived){%>
+<% for (let d of data) {
+  if(d.content && !d.accepted && !d.archived && !data[0].complete){%>
 <div>
   <p>contribution content:<%= d.content %></p>
   <p>votes:<%= d.votes %></p>
+
+  <% if(!data[0].complete){%>
   <form action="/stories/contributions/<%=d.contribution_id%>/vote" method="POST">
     <button>Upvote Contribution</button>
   </form>
-  <% if(data[0].user_id === 1){%>
+  <% } else { '' }; %>
+
+  <% if(data[0].user_id === 1 && !data[0].complete){%>
     <form action="/stories/contributions/<%=d.contribution_id%>" method="POST">
       <button>Accept Contribution</button>
     </form>
