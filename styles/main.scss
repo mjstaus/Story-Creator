@@ -41,7 +41,8 @@ body {
     }
     text-align: center;
     color: $yellow;
-    text-shadow: 4px 2px 0px #b0797e, 6px 5px 0px #00000026;
+    text-shadow: 1px 1px 1px hsl(186, 43%, 60%), 2px 2px 2px hsl(186, 43%, 60%),
+      4px 4px 4px hsl(186, 43%, 60%), 8px 8px 8px hsl(186, 43%, 60%);
   }
   p {
     font: {
@@ -54,16 +55,15 @@ body {
   }
   .button {
     @include button();
-    -webkit-transition: transform ease-in-out 400ms;
-    -o-transition: transform ease-in-out 400ms;
-    -ms-transition: transform ease-in-out 400ms;
-    -moz-transition: transform ease-in-out 400ms;
-    transition: transform ease-in-out 400ms;
+    -webkit-transition: all ease-in-out 200ms;
+    -o-transition: all ease-in-out 200ms;
+    -ms-transition: all ease-in-out 200ms;
+    -moz-transition: all ease-in-out 200ms;
+    transition: all ease-in-out 200ms;
   }
   .button:hover {
     background-color: $deepblue;
     transform: scale(1.05);
-    border-radius: 10px;
   }
   .button:active {
     position: relative;
@@ -141,6 +141,13 @@ body {
             top: 1%;
             bottom: 0;
           }
+          color: $deepblue;
+          font-weight: bolder;
+          text-shadow:
+            1px 1px 1px hsl(60, 17%, 85%),
+            2px 2px 2px hsl(160, 17%, 85%),
+            4px 4px 4px hsl(60, 17%, 85%),
+            8px 8px 8px hsl(60, 17%, 85%);
         }
 
         .subheading {
@@ -174,11 +181,11 @@ body {
           font: {
             size: 1.1rem;
           }
-          -webkit-transition: transform ease-in-out 400ms;
-          -o-transition: transform ease-in-out 400ms;
-          -ms-transition: transform ease-in-out 400ms;
-          -moz-transition: transform ease-in-out 400ms;
-          transition: transform ease-in-out 400ms;
+          -webkit-transition: all ease-in-out 300ms;
+          -o-transition: all ease-in-out 300ms;
+          -ms-transition: all ease-in-out 300ms;
+          -moz-transition: all ease-in-out 300ms;
+          transition: all ease-in-out 300ms;
         }
       }
 
