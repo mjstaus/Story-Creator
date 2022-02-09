@@ -53,6 +53,7 @@
 <% for (let d of data) {
   if(d.content && !d.accepted && !d.archived && !data[0].complete){%>
 <div>
+  <p>contributor: <%= d.contributor %></p>
   <p>contribution content:<%= d.content %></p>
   <p>votes:<%= d.votes %></p>
 

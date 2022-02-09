@@ -68,7 +68,22 @@ module.exports = (db) => {
     db.query(queryString, [req.params.id])
       .then((data) => {
         const templateVars = { data: data.rows };
-        res.render("stories/stories_show", templateVars);
+        const secondQueryString = `SELECT users.name as contributor, contributions.id as contribution_id
+        FROM users
+        JOIN contributions ON users.id = contributions.user_id
+        JOIN stories ON contributions.story_id = stories.id
+        WHERE stories.id = $1;`
+        db.query(secondQueryString, [req.params.id])
+        .then((new_data) => {
+          for (user of new_data.rows) {
+            for (let obj = 0; obj < templateVars.data.length; obj++) {
+              if (user.contribution_id === templateVars.data[obj]['contribution_id']) {
+                templateVars.data[obj]['contributor'] = user.contributor;
+              }
+            }
+          }console.log(templateVars)
+          res.render("stories/stories_show", templateVars);
+        })
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });

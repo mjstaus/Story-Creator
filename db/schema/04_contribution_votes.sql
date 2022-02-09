@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS contriubtion_votes CASCADE;
+DROP TABLE IF EXISTS contribution_votes CASCADE;
 
 CREATE TABLE contribution_votes (
   id SERIAL PRIMARY KEY NOT NULL,

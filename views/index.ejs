@@ -55,8 +55,15 @@
   <h2>Discover Stories</h2>
 <% for (let story of stories) { %>
     <div class="storybox">
-      <p><%= story.title %></p>
-      <img>
+      <a href="/stories/<%=story.id%>"><%=story.title%></a>
+
+      <% if(!story.complete){%>
+        <img src="/images/open_book.png">
+        <% }
+        else if (story.complete) { %>
+          <img src="/images/closed_book.png">
+      <%}
+      else { '' }; %>
     </div>
   <% } %>
   </div>
