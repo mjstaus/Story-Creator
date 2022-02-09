@@ -43,6 +43,7 @@
 <!-- Pending Submissions -->
 <% for (let d of data) { if(d.content && !d.accepted && !d.archived){%>
 <div>
+  <p>contributor: <%= d.contributor %></p>
   <p>contribution content:<%= d.content %></p>
   <p>votes:<%= d.votes %></p>
   <form action="/stories/contributions/<%=d.id%>" method="POST">
