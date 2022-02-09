@@ -17,14 +17,14 @@ module.exports = (db) => {
   //Show User's Stories
   router.get("/:id/stories", (req, res) => {
     const queryString = `
-      SELECT *
+      SELECT stories.*, users.name, users.avatar
         FROM stories
+        JOIN users ON stories.user_id = users.id
         WHERE user_id = $1;`
 
     db.query(queryString, [req.params.id])
       .then((data) => {
-        const templateVars = { stories: data.rows };
-        console.log(templateVars)
+        const templateVars = { data: data.rows };
         res.render("users/users_stories", templateVars);
       })
       .catch((err) => {
@@ -35,12 +35,14 @@ module.exports = (db) => {
   //Show User's Contributions
   router.get("/:id/contributions", (req, res) => {
     const queryString =
-      `SELECT *
+      `SELECT contributions.*, users.name, users.avatar
         FROM contributions
+        JOIN users ON contributions.user_id = users.id
         WHERE user_id = $1;`
     db.query(queryString, [req.params.id])
       .then((data) => {
-        const templateVars = { contributions: data.rows };
+        const templateVars = { data: data.rows };
+        console.log(templateVars)
         res.render("users/users_contributions", templateVars);
       })
       .catch((err) => {

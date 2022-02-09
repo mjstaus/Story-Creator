@@ -1,10 +1,19 @@
 <%-include("../partials/_header")%>
 
-<h1>Show user's stories</h1>
-<% for (let contribution of contributions) { %>
-  <div>
-    <ul><%= contribution.content %></ul>
+<div class="main">
+
+  <div class="user_header">
+    <h1><%= data[0].name %>'s Contributions</h1>
+    <img src= <%= data[0].avatar %>>
   </div>
-<% } %>
+
+  <div class="contribution_card">
+    <% for (let d of data) { %>
+      <div>
+        <p><%= d.content %></p>
+      </div>
+    <% } %>
+  </div>
+</div>
 
 <%-include("../partials/_footer")%>

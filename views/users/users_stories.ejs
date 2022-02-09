@@ -1,11 +1,26 @@
 <%-include("../partials/_header")%>
 
-<h1>Show user's stories</h1>
-<% for (let story of stories) { %>
-  <div>
-    <ul><%= story.title %></ul>
-    <ul><%= story.initial_content %></ul>
+<div class="main">
+
+<div class="user_stories">
+  <div class="user_header">
+    <h2><%= data[0].name %>'s Stories</h2>
   </div>
-<% } %>
+
+  <% for (let d of data) { %>
+    <div class="storybox_large">
+      <% if(!d.complete){%>
+        <img src="/images/open_book.png">
+        <% }
+        else if (d.complete) { %>
+          <img src="/images/closed_book.png">
+      <%}
+      else { '' }; %>
+      <a href="/stories/<%=d.id%>"><%= d.title %></a>
+    </div>
+    <% } %>
+</div>
+</div>
+</div>
 
 <%-include("../partials/_footer")%>

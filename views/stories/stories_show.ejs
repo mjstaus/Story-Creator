@@ -1,9 +1,17 @@
 <%-include("../partials/_header")%>
 
-<h1>Show one story</h1>
+<div class="main">
 
-<h3><%= data[0].title %></h3>
-<h3><%= data[0].creator_name %></h3>
+<div class="container">
+  <div class="story_header">
+    <h1><%= data[0].title %></h1>
+
+    <h3>Author:</h3>
+    <div class="story_author"></div>
+      <img src= <%= data[0].avatar %>>
+      <p><%= data[0].creator_name %></p>
+    </div>
+  </div>
 
 <!-- Complete vs. incomplete icons -->
 <% if(!data[0].complete){%>
@@ -15,7 +23,7 @@
 <%} else { '' }; %>
 
 <!-- Complete Story Button (If user = creator, hard coded to users.id 1) -->
-<% if(data[0].creator_id === "1"){%>
+<% if(data[0].user_id === 1){%>
   <form action="/stories/<%=data[0].id%>" method="POST">
   <button>Finalize Story</button>
   <% } else { '' }; %>
@@ -46,13 +54,19 @@
   <p>contributor: <%= d.contributor %></p>
   <p>contribution content:<%= d.content %></p>
   <p>votes:<%= d.votes %></p>
-  <form action="/stories/contributions/<%=d.id%>" method="POST">
-    <button>Accept Contribution</button>
-  </form>
   <form action="/stories/contributions/<%=d.contribution_id%>/vote" method="POST">
     <button>Upvote Contribution</button>
   </form>
+  <% if(data[0].user_id === 1){%>
+    <form action="/stories/contributions/<%=d.contribution_id%>" method="POST">
+      <button>Accept Contribution</button>
+    </form>
+  <% } else { '' }; %>
 </div>
 <%} else { '' }; }%>
+
+</div>
+
+</div>
 
 <%-include("../partials/_footer")%>

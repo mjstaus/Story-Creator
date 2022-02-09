@@ -1,18 +1,27 @@
 <%-include("partials/_header")%>
 
-<!-- code here -->
+<div class="main">
 <section class="hero">
   <div class="hero_copy">
     <h2>Tell My Story</h2>
     <div class="subheading">
-      <p>Tell a story</p>
-      <p>Add to a story</p>
-      <p>Read a story</p>
+      <div class="sub_item">
+        <img src="/images/pencil.png">
+        <p>Tell a story</p>
+      </div>
+      <div class="sub_item">
+        <img src="/images/heart.png">
+        <p>Add to a story</p>
+      </div>
+      <div class="sub_item">
+        <img src="/images/closed_book.png">
+        <p>Read a story</p>
+      </div>
     </div>
     <a href="#" class="button">START NOW</a>
   </div>
   <div class="hero_image">
-    <img src="https://images.pexels.com/photos/3755707/pexels-photo-3755707.jpeg">
+    <img src="/images/hero.png">
   </div>
 </section>
 <section class="discover">
@@ -20,12 +29,19 @@
   <h2>Discover Stories</h2>
 <% for (let story of stories) { %>
     <div class="storybox">
-      <p><%= story.title %></p>
-      <img>
+      <a href="/stories/<%=story.id%>"><%=story.title%></a>
+
+      <% if(!story.complete){%>
+        <img src="/images/open_book.png">
+        <% }
+        else if (story.complete) { %>
+          <img src="/images/closed_book.png">
+      <%}
+      else { '' }; %>
     </div>
   <% } %>
   </div>
 </section>
-
+</div>
 
 <%-include("partials/_footer")%>

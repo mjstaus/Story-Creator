@@ -1,5 +1,7 @@
 <%-include("../partials/_header")%>
 
+<div class="main">
+
 <section class="discover">
   <div class="container">
   <h2>Discover Stories</h2>
@@ -8,17 +10,17 @@
       <a href="/stories/<%=story.id%>"><%=story.title%></a>
 
       <% if(!story.complete){%>
-        <p>incomplete - add image here</p>
-      <% }
-      else if (story.complete) { %>
-        <p>incomplete - add image here</p>
+        <img src="/images/open_book.png">
+        <% }
+        else if (story.complete) { %>
+          <img src="/images/closed_book.png">
       <%}
       else { '' }; %>
-
     </div>
   <% } %>
   </div>
 </section>
+</div>
 
 
 <%-include("../partials/_footer")%>

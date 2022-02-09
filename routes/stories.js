@@ -57,13 +57,13 @@ module.exports = (db) => {
   //View one story, accepted contributions, and pending contributions
   router.get("/:id", (req, res) => {
     const queryString =
-      `SELECT contributions.*, contributions.id AS contribution_id, stories.*, users.name AS creator_name, count(contribution_votes.contribution_id) AS votes
+      `SELECT contributions.*, contributions.id AS contribution_id, stories.*, users.name AS creator_name, users.avatar, count(contribution_votes.contribution_id) AS votes
         FROM users
         JOIN stories ON users.id = stories.user_id
         LEFT JOIN contributions ON stories.id = contributions.story_id
         LEFT JOIN contribution_votes ON contributions.id = contribution_votes.contribution_id
         WHERE stories.id = $1
-        GROUP BY contributions.id, stories.id, creator_name;`;
+        GROUP BY contributions.id, stories.id, creator_name, users.avatar;`;
 
     db.query(queryString, [req.params.id])
       .then((data) => {
@@ -174,7 +174,6 @@ module.exports = (db) => {
 
     db.query(queryString, queryParams)
       .then((data) => {
-        console.log(data.rows)
         res.redirect(`/stories/${data.rows[0].story_id}`);
       })
       .catch((err) => {
