@@ -84,16 +84,18 @@ body {
     }
 
     .nav-logo {
-      display: flex;
-      p {
-        font: {
-          size: 30px;
-          family: 'Montserrat', sans-serif;
+      a {
+        display: flex;
+        p {
+          font: {
+            size: 30px;
+            family: 'Montserrat', sans-serif;
+          }
+          color: $yellow;
         }
-        color: $yellow;
-      }
-      img {
-        width: 60px;
+        img {
+          width: 60px;
+        }
       }
     }
 
@@ -227,7 +229,7 @@ body {
         }
       }
     }
-      /// USER'S STORIES ///
+      /// USER'S STATS ///
 
     .user_stats {
       border-radius: 12px;
@@ -259,7 +261,7 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        width: 35%;
+        width: 55%;
 
         .stat {
           display: flex;
@@ -272,19 +274,20 @@ body {
           p {
             padding-left: 2%;
             color: $deepblue;
-            font-size: smaller;
           }
           img {
             height: 50px;
           }
           .stat_num {
             color: $coral;
-            font-size: large;
+            font-size: 1.5rem;
             font-weight: bold;
           }
         }
       }
     }
+
+  /// USER STORIES ///
     .user_stories {
       display: flex;
       flex-direction: column;
