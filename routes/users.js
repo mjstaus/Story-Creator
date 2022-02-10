@@ -70,6 +70,7 @@ module.exports = (db) => {
               stats: data2.rows,
               votes: data3.rows,
             };
+            console.log(templateVars)
             res.render("users/users_contributions", templateVars);
           })
           .catch((err) => {
