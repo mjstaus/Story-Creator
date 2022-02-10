@@ -304,7 +304,6 @@ body {
       flex-direction: column;
       align-items: center;
 
-
       .storybox_large {
         display: flex;
         align-items: flex-start;
@@ -365,6 +364,53 @@ body {
         }
       }
     }
+
+  /// USER CONTRIBUTIONS ///
+    .contribution_box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .contribution {
+        display: flex;
+        align-items: flex-start;
+        width: 45%;
+        height: 150px;
+        font-family: Courier, monospace;
+        font-size: 24px;
+        resize: none;
+        margin-bottom: 30px;
+        background-color: $yellow;
+        -webkit-border-radius: 12px;
+        border-radius: 12px;
+
+        &:focus {
+          outline: none;
+        }
+
+        p {
+          color: $deepblue;
+          font: {
+            weight: bold;
+            size: 2.5rem;
+          }
+          display: inline;
+          padding: {
+            right: 2%;
+            left: 5%;
+            bottom: 5%;
+          }
+          margin: 0;
+        }
+        img {
+          align-self: flex-end;
+          height: 60px;
+          width: 60px;
+        }
+      }
+    }
+
+
 
     //// DASHBOARD ////
 
