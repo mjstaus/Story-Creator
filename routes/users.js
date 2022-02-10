@@ -51,26 +51,35 @@ module.exports = (db) => {
         WHERE user_id = $1;`;
 
     const queryString2 = `
-      SELECT COUNT(contributions.accepted) FILTER (WHERE contributions.accepted) AS contributions_accepted, COUNT(contributions.id) AS contributions_total
+      SELECT COUNT(contributions.accepted) FILTER (WHERE contributions.accepted) AS contributions_accepted, COUNT(contributions.id) AS contributions_total, COUNT(contributions.archived) AS contributions_archived
         FROM contributions
         WHERE user_id = $1;`;
 
     const queryString3 = `
-      SELECT COUNT(contribution_votes.id) AS votes
-        FROM contribution_votes
-        WHERE user_id = $1
-        GROUP BY contribution_id;`;
-
+      SELECT contribution_votes.contribution_id, COUNT(contribution_votes.id) AS count
+        FROM contributions
+        JOIN contribution_votes ON contribution_votes.contribution_id = contributions.id
+        GROUP BY contribution_votes.contribution_id`;
+//want contribution
     db.query(queryString1, [req.params.id]).then((data) => {
       db.query(queryString2, [req.params.id]).then((data2) => {
-        db.query(queryString3, [req.params.id])
+        db.query(queryString3)
           .then((data3) => {
             const templateVars = {
               data: data.rows,
-              stats: data2.rows,
-              votes: data3.rows,
+              stats: data2.rows
             };
-            console.log(templateVars)
+            console.log(data3.rows);
+            for (d of data3.rows) {
+              for (let i = 0; i < templateVars.data.length; i++) {
+                if (
+                  d.contribution_id ===
+                  templateVars.data[i]["id"]
+                ) {
+                  templateVars.data[i]["votes"] = d.count;
+                }
+              }
+            }
             res.render("users/users_contributions", templateVars);
           })
           .catch((err) => {
