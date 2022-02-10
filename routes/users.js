@@ -16,21 +16,33 @@ module.exports = (db) => {
 
   //Show User's Stories
   router.get("/:id/stories", (req, res) => {
-    const queryString = `
-      SELECT stories.*, users.name, users.avatar
+    const queryString1 = `
+    SELECT stories.*, users.name, users.avatar
+      FROM stories
+      JOIN users ON stories.user_id = users.id
+      WHERE user_id = $1
+      GROUP BY stories.id, users.name, users.avatar;`
+
+    const queryString2 = `
+      SELECT COUNT(stories.complete) FILTER (WHERE stories.complete) AS stories_complete, COUNT(stories.complete) FILTER (WHERE NOT stories.complete) AS stories_in_progress, COUNT(stories.id) AS stories_total
         FROM stories
-        JOIN users ON stories.user_id = users.id
         WHERE user_id = $1;`
 
-    db.query(queryString, [req.params.id])
+    db.query(queryString1, [req.params.id])
       .then((data) => {
-        const templateVars = { data: data.rows };
-        res.render("users/users_stories", templateVars);
+        db.query(queryString2, [req.params.id])
+        .then((data2) => {
+          const templateVars = { data: data.rows, stats: data2.rows };
+          console.log(templateVars)
+          res.render("users/users_stories", templateVars);
+        })
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
   });
+
+  //
 
   //Show User's Contributions
   router.get("/:id/contributions", (req, res) => {
@@ -42,7 +54,6 @@ module.exports = (db) => {
     db.query(queryString, [req.params.id])
       .then((data) => {
         const templateVars = { data: data.rows };
-        console.log(templateVars)
         res.render("users/users_contributions", templateVars);
       })
       .catch((err) => {
