@@ -86,7 +86,7 @@ module.exports = (db) => {
                 templateVars.data[obj]['contributor_avatar'] = user.contributor_avatar;
               }
             }
-          }console.log(templateVars)
+          }
           res.render("stories/stories_show", templateVars);
         })
       })
