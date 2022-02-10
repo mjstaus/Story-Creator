@@ -38,16 +38,17 @@ body {
   h2 {
     font: {
       size: $h2size;
+      family: 'Montserrat', sans-serif;
     }
     text-align: center;
     color: $yellow;
-    text-shadow: 1px 1px 1px hsl(186, 43%, 60%), 2px 2px 2px hsl(186, 43%, 60%),
-      4px 4px 4px hsl(186, 43%, 60%), 8px 8px 8px hsl(186, 43%, 60%);
+    text-shadow: 4px 2px 0px #b0797e, 6px 5px 0px #00000026;
   }
   p {
     font: {
       size: 1.5rem;
       text-decoration: none;
+      family: 'Cutive Mono', monospace;
     }
   }
   a:hover {
@@ -55,22 +56,16 @@ body {
   }
   .button {
     @include button();
-    -webkit-transition: all ease-in-out 200ms;
-    -o-transition: all ease-in-out 200ms;
-    -ms-transition: all ease-in-out 200ms;
-    -moz-transition: all ease-in-out 200ms;
-    transition: all ease-in-out 200ms;
   }
   .button:hover {
     background-color: $deepblue;
     transform: scale(1.05);
+    border-radius: 10px;
   }
   .button:active {
     position: relative;
     top: 1px;
   }
-
-  /// NAV BAR ///
 
   header {
     display: flex;
@@ -90,14 +85,12 @@ body {
 
     .nav-logo {
       display: flex;
-      a {
+      p {
         font: {
           size: 30px;
+          family: 'Montserrat', sans-serif;
         }
         color: $yellow;
-        text-decoration: none;
-        font-weight: bold;
-        padding: 10px;
       }
       img {
         width: 60px;
@@ -107,7 +100,7 @@ body {
     nav {
       width: 50%;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-evenly;
       a {
         color: $cream;
         text-decoration: none;
@@ -117,12 +110,9 @@ body {
     }
   }
 
-  // MAIN CONTAINER //
-
   .main {
     padding-top: 100px;
 
-    // HOME PAGE //
     .hero {
       padding-top: 5%;
       display: flex;
@@ -141,21 +131,17 @@ body {
             top: 1%;
             bottom: 0;
           }
-          color: $deepblue;
-          font-weight: bolder;
-          text-shadow: 1px 1px 1px hsl(60, 17%, 85%),
-            2px 2px 2px hsl(60, 17%, 85%), 4px 4px 4px hsl(60, 17%, 85%),
-            8px 8px 8px hsl(60, 17%, 85%);
         }
 
         .subheading {
           display: flex;
           flex-direction: column;
           justify-content: space-around;
-          height: 42%;
+          height: 30%;
           margin: {
             top: 5%;
             left: 5%;
+            bottom: 10%;
           }
           .sub_item {
             display: flex;
@@ -179,11 +165,6 @@ body {
           font: {
             size: 1.1rem;
           }
-          -webkit-transition: all ease-in-out 300ms;
-          -o-transition: all ease-in-out 300ms;
-          -ms-transition: all ease-in-out 300ms;
-          -moz-transition: all ease-in-out 300ms;
-          transition: all ease-in-out 300ms;
         }
       }
 
@@ -196,7 +177,6 @@ body {
       }
     }
 
-    /// DISCOVER PAGE ///
     .discover {
       display: flex;
       flex: {
@@ -224,17 +204,23 @@ body {
             radius: 15px;
           }
           background: {
-            color: $deepblue;
+            color: #fce7c6;
           }
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-evenly;
           a {
-            color: $cream;
+            color: black;
             font: {
               weight: bold;
+              family: 'Cutive Mono', monospace;
+              size: 1.2rem;
             }
             text-decoration: none;
+            margin: 3%;
           }
           img {
-            align-self: flex-end;
             height: 60px;
             width: 60px;
           }
