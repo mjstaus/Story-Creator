@@ -1,6 +1,16 @@
 <%-include("../partials/_header")%>
 
 <div class="main">
+<div class="user_show">
+  <div class="user_stats">
+    <img src=<%=data[0].avatar%>>
+    <li>
+      <ul><strong>Total Stories:</strong> <%= stats[0].stories_total%> </ul>
+      <ul><strong>Completed Stories:</strong> <%= stats[0].stories_complete%></ul>
+      <ul><strong>In-Progress Stories:</strong> <%= stats[0].stories_in_progress%></ul>
+    </li>
+  </div>
+
   <div class="user_stories">
     <div class="user_header">
       <h2><%= data[0].name %>'s Stories</h2>
@@ -22,6 +32,7 @@
     <% } %>
     </div>
   </div>
+</div>
 </div>
 
 <%-include("../partials/_footer")%>
