@@ -29,7 +29,7 @@
   <h2>Discover Stories</h2>
 <% for (let story of stories) { %>
     <div class="storybox">
-      <a href="/stories/<%=story.id%>"><%=story.title%></a>
+      <a href="/stories/<%=story.id%>">@<%=story.name%><br><%=story.title%></a>
 
       <% if(!story.complete){%>
         <img src="/images/open_book.png">

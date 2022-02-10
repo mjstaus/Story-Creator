@@ -5,7 +5,11 @@ const router = express.Router();
 module.exports = (db) => {
   //View all stories
   router.get("/", (req, res) => {
-    const queryString = `SELECT * FROM stories;`;
+    const queryString = `SELECT stories.*, users.name
+    FROM stories
+    JOIN users ON stories.user_id = users.id
+    WHERE complete = FALSE
+    ORDER BY id DESC;`;
     db.query(queryString)
       .then((data) => {
         const templateVars = { stories: data.rows };

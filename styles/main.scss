@@ -5,6 +5,8 @@ $yellow: #ffcb77;
 $teal: #0f8a7a;
 $coral: #fe6d73;
 $cream: #fafaf8;
+$boxcolor: #fce7c6;
+$transparentboxcolor: #fce7c694;
 
 @mixin button {
   background-color: $coral;
@@ -47,7 +49,6 @@ body {
   p {
     font: {
       size: 1.5rem;
-      text-decoration: none;
       family: 'Cutive Mono', monospace;
     }
   }
@@ -110,7 +111,80 @@ body {
     }
   }
 
+  //stories_show
+
+  .stories_show {
+    margin: 0 15%;
+    .container{
+      margin-top: 5%;
+      h1 {
+        color: $yellow;
+        text-shadow: 2px 1px 0px #b0797e, 4px 3px 0px rgba(0, 0, 0, 0.15);
+        margin: {
+          bottom: 0;
+        }
+        font: {
+          size: 3rem;
+        }
+      }
+      .story_header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        color: white;
+        p {
+          font: {
+            family: 'Montserrat', sans-serif;
+          }
+        }
+        .story_author{
+          display: flex;
+          flex-direction: row;
+          img {
+            height: 80px;
+            width: 80px;
+          }
+        }
+        .story_status {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          width: 30%;
+        }
+      }
+    }
+
+    .initial_content {
+      margin-top: 5%;
+      background-color: $boxcolor;
+      border-radius: 15px;
+      padding: 1% 3%;
+    }
+
+    .submit_contribution {
+      background-color: $transparentboxcolor;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      margin-top: 5%;
+      padding: 2%;
+      input {
+        height: 5rem;
+        width: 100%;
+      }
+      .submit_contribution_button {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1%;
+      }
+    }
+  }
+
+
   .main {
+
+    //homepage
     padding-top: 100px;
 
     .hero {
@@ -204,7 +278,7 @@ body {
             radius: 15px;
           }
           background: {
-            color: #fce7c6;
+            color: $boxcolor;
           }
           display: flex;
           flex-direction: row;
@@ -227,8 +301,10 @@ body {
         }
       }
 
-/// USER'S STORIES ///
+
     }
+/// USER'S STORIES ///
+
     .user_stories {
       display: flex;
       flex-direction: column;
@@ -302,11 +378,12 @@ body {
         align-items: center;
         margin-top: 15px;
         h2 {
+          text-align: center;
+          text-shadow: 2px 1px 0px #b0797e, 4px 3px 0px rgba(0, 0, 0, 0.15);
+          color: #ffcb77;
           font: {
             size: 4rem;
-            text-align: center;
-            color: #ffcb77;
-            text-shadow: 2px 1px 0px #b0797e, 4px 3px 0px rgba(0, 0, 0, 0.15);
+
           }
         }
       }
@@ -429,5 +506,7 @@ body {
       position: relative;
       top: 1px;
     }
+
+
   }
 }

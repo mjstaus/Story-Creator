@@ -1,69 +1,74 @@
 <%-include("../partials/_header")%>
 
-<div class="main">
+<div class="main stories_show">
 
-<div class="container">
-  <div class="story_header">
+  <div class="container">
     <h1><%= data[0].title %></h1>
+    <div class="story_header">
+      <div class="story_author">
+        <img class="avatar" src= <%= data[0].avatar %>>
+        <p><%= data[0].creator_name %></p>
+      </div>
+      <div class="story_status">
+        <div>
+          <!-- Complete Story Button (If user = creator, hard coded to users.id 1) -->
+          <% if(data[0].user_id === 1){%>
+            <form action="/stories/<%=data[0].id%>" method="POST">
+            <button>Finalize Story</button>
+          <% }%>
+        </div>
+        <div>
+          <!-- Complete vs. incomplete icons -->
+          <% if(!data[0].complete){%>
+          <p>incomplete!</p>
 
-    <h3>Author:</h3>
-    <div class="story_author"></div>
-      <img src= <%= data[0].avatar %>>
-      <p><%= data[0].creator_name %></p>
+          </form>
+          <% } else if (data[0].complete) { %>
+          <p>complete!</p>
+          <%} else { '' }; %>
+        </div>
+      </div>
     </div>
   </div>
 
-<!-- Complete vs. incomplete icons -->
-<% if(!data[0].complete){%>
-<p>incomplete!</p>
-
-</form>
-<% } else if (data[0].complete) { %>
-<p>complete!</p>
-<%} else { '' }; %>
-
-<!-- Complete Story Button (If user = creator, hard coded to users.id 1) -->
-<% if(data[0].user_id === 1){%>
-  <form action="/stories/<%=data[0].id%>" method="POST">
-  <button>Finalize Story</button>
-  <% } else { '' }; %>
-
-<!-- Initial content -->
-<p><%= data[0].initial_content %></p>
-
-<!-- Accepted contributions -->
-<% for (let d of data) { if(d.accepted){%>
-<p><%= d.content%></p>
-<%} else { '' }; }%>
-
-<!-- Submit New Contribution -->
-
-<% if(!data[0].complete){%>
-<form action="/stories/<%=data[0].id%>/contributions" method="POST">
-  <div>
-    <label for="content">Write Contribution Here</label>
-    <input type="text" name="content" placeholder="What happens next?" />
-    <button type="submit">Submit</button>
+  <div class="initial_content">
+    <!-- Initial content -->
+    <p><%= data[0].initial_content %></p>
   </div>
-</form>
-<% } else { '' }; %>
 
-<!-- Pending Submissions -->
-<% for (let d of data) { if(d.content && !d.accepted && !d.archived){%>
-<div>
-  <p>contributor: <%= d.contributor %></p>
-  <p>contribution content:<%= d.content %></p>
-  <p>votes:<%= d.votes %></p>
-  <form action="/stories/contributions/<%=d.contribution_id%>/vote" method="POST">
-    <button>Upvote Contribution</button>
+  <!-- Accepted contributions -->
+  <% for (let d of data) { if(d.accepted){%>
+  <p><%= d.content%></p>
+  <%} else { '' }; }%>
+
+  <!-- Submit New Contribution -->
+
+  <% if(!data[0].complete){%>
+  <form action="/stories/<%=data[0].id%>/contributions" method="POST" class="submit_contribution">
+    <label for="content"></label>
+    <input type="text" name="content" placeholder="What happens next?" />
+    <div class="submit_contribution_button">
+      <button type="submit" class="button">Submit</button>
+    </div>
   </form>
-  <% if(data[0].user_id === 1){%>
-    <form action="/stories/contributions/<%=d.contribution_id%>" method="POST">
-      <button>Accept Contribution</button>
-    </form>
   <% } else { '' }; %>
-</div>
-<%} else { '' }; }%>
+
+  <!-- Pending Submissions -->
+  <% for (let d of data) { if(d.content && !d.accepted && !d.archived){%>
+  <div>
+    <p>contributor: <%= d.contributor %></p>
+    <p>contribution content:<%= d.content %></p>
+    <p>votes:<%= d.votes %></p>
+    <form action="/stories/contributions/<%=d.contribution_id%>/vote" method="POST">
+      <button>Upvote Contribution</button>
+    </form>
+    <% if(data[0].user_id === 1){%>
+      <form action="/stories/contributions/<%=d.contribution_id%>" method="POST">
+        <button>Accept Contribution</button>
+      </form>
+    <% } else { '' }; %>
+  </div>
+  <%} else { '' }; }%>
 
 </div>
 
