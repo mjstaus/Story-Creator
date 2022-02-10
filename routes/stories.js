@@ -5,10 +5,14 @@ const router = express.Router();
 module.exports = (db) => {
   //View all stories
   router.get("/", (req, res) => {
-    const queryString = `SELECT * FROM stories;`;
+    const queryString = `
+      SELECT stories.*, users.name, users.avatar
+        FROM stories
+        JOIN users on stories.user_id = users.id
+        ORDER BY id`;
     db.query(queryString)
       .then((data) => {
-        const templateVars = { stories: data.rows };
+        const templateVars = { data: data.rows };
         res.render("stories/stories_index", templateVars);
       })
       .catch((err) => {
@@ -29,7 +33,7 @@ module.exports = (db) => {
         ORDER BY id DESC;`;
     db.query(queryString)
       .then((data) => {
-        const templateVars = { stories: data.rows };
+        const templateVars = { data: data.rows };
         res.render("stories/stories_index", templateVars);
       })
       .catch((err) => {
@@ -46,7 +50,7 @@ module.exports = (db) => {
         ORDER BY id DESC;`;
     db.query(queryString)
       .then((data) => {
-        const templateVars = { stories: data.rows };
+        const templateVars = { data: data.rows };
         res.render("stories/stories_index", templateVars);
       })
       .catch((err) => {
