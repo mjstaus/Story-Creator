@@ -47,8 +47,8 @@ body {
   p {
     font: {
       size: 1.5rem;
-      text-decoration: none;
     }
+    text-decoration: none;
   }
   a:hover {
     transform: scale(1.1);
@@ -315,12 +315,10 @@ body {
         align-items: center;
         margin-top: 15px;
         h2 {
-          font: {
-            size: 4rem;
-            text-align: center;
-            color: #ffcb77;
-            text-shadow: 2px 1px 0px #b0797e, 4px 3px 0px rgba(0, 0, 0, 0.15);
-          }
+          font-size: 4rem;
+          text-align: center;
+          color: $yellow;
+          text-shadow: 2px 1px 0px #b0797e, 4px 3px 0px rgba(0, 0, 0, 0.15);
         }
       }
       .action_box {
@@ -330,35 +328,25 @@ body {
         margin: 1% 5%;
         min-height: 260px;
         width: 1000px;
+
         .action {
           display: flex;
           flex-direction: column;
           width: 30%;
           border-radius: 8%;
-          background: linear-gradient(
-            to left,
-            $deepblue 25%,
-            $teal 25% 50%,
-            $yellow 50% 75%,
-            $coral 75%
-          );
-
+          background-color: $teal;
+          img {
+            width: 160px;
+            height: 160px;
+          }
           .box_heading {
             display: flex;
             justify-content: center;
             align-items: center;
             margin-top: 40px;
+            margin-bottom: 10px;
             color: $cream;
             size: 2rem;
-            text-align: center;
-            background-color: $blue;
-          }
-          .body {
-            color: $cream;
-            font: {
-              size: 1rem;
-            }
-            margin: 5%;
             text-align: center;
           }
         }
@@ -375,6 +363,11 @@ body {
 
       div {
         width: 700px;
+      }
+      img {
+        width: 400px;
+        height: 400px;
+        margin-bottom: 200px;
       }
     }
     #new-story-title {
