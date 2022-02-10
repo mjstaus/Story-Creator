@@ -5,6 +5,10 @@ $yellow: #ffcb77;
 $teal: #0f8a7a;
 $coral: #fe6d73;
 $cream: #fafaf8;
+$boxcolor: #fce7c6;
+$transparentboxcolor: #fce7c694;
+$cutivefont: 'Cutive Mono', monospace;
+$montserratfont: 'Montserrat', sans-serif;
 
 @mixin button {
   background-color: $coral;
@@ -47,8 +51,7 @@ body {
   p {
     font: {
       size: 1.5rem;
-      text-decoration: none;
-      family: 'Cutive Mono', monospace;
+      family: $cutivefont;
     }
   }
   a:hover {
@@ -112,7 +115,131 @@ body {
     }
   }
 
+  //stories_show
+
+  .stories_show {
+    margin: 0 15%;
+    img {
+      height: 80px;
+      width: 80px;
+    }
+    .container{
+      margin-top: 5%;
+      h1 {
+        color: $yellow;
+        text-shadow: 2px 1px 0px #b0797e, 4px 3px 0px rgba(0, 0, 0, 0.15);
+        margin: {
+          bottom: 0;
+        }
+        font: {
+          size: 3rem;
+        }
+      }
+      .story_header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        color: white;
+        p {
+          font: {
+            family: $montserratfont
+          }
+        }
+        .story_author{
+          display: flex;
+          flex-direction: row;
+          p {
+            color: rgb(54, 54, 54);
+          }
+        }
+        .story_status {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          width: 30%;
+        }
+
+        .story_book {
+          height: 70px;
+          width: 70px;
+        }
+      }
+    }
+
+    .initial_content, .content {
+      border-radius: 15px;
+      padding: 1% 3%;
+    }
+
+    .initial_content {
+      margin-top: 5%;
+    }
+
+    .content {
+      margin: 0;
+    }
+
+    .submit_contribution {
+      background-color: $transparentboxcolor;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      margin-top: 5%;
+      padding: 2%;
+      input {
+        height: 5rem;
+        width: 100%;
+      }
+      .submit_contribution_button {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1%;
+        button {
+          background-color: $deepblue;
+        }
+      }
+    }
+
+    .pending {
+      background-color: $transparentboxcolor;
+      border-radius: 15px;
+      margin: 5% 0;
+      padding: 0 3%;
+      .contributor, .likes_accept, .votes{
+        display: flex;
+        flex-direction: row;
+      }
+      .contributor, .votes {
+        p {
+          font-family: $montserratfont;
+          margin-left: 5px;
+          color: rgb(54, 54, 54);
+        }
+      }
+      .likes_accept {
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        .button {
+          background-color: $deepblue;
+        }
+        .votes {
+          align-items: center;
+          width: 10%;
+          .upvote{
+            width: 25px;
+            height: 25px;
+          }
+        }
+      }
+    }
+  }
+
+
   .main {
+
+    //homepage
     padding-top: 100px;
 
     .hero {
@@ -206,7 +333,7 @@ body {
             radius: 15px;
           }
           background: {
-            color: #fce7c6;
+            color: $boxcolor;
           }
           display: flex;
           flex-direction: row;
@@ -286,8 +413,13 @@ body {
         }
       }
     }
+<<<<<<< HEAD
 
   /// USER STORIES ///
+=======
+/// USER'S STORIES ///
+
+>>>>>>> 3ab0ef7267a1c41c278d565834cfeb1de99a86c2
     .user_stories {
       display: flex;
       flex-direction: column;
@@ -422,11 +554,12 @@ body {
         align-items: center;
         margin-top: 15px;
         h2 {
+          text-align: center;
+          text-shadow: 2px 1px 0px #b0797e, 4px 3px 0px rgba(0, 0, 0, 0.15);
+          color: #ffcb77;
           font: {
             size: 4rem;
-            text-align: center;
-            color: #ffcb77;
-            text-shadow: 2px 1px 0px #b0797e, 4px 3px 0px rgba(0, 0, 0, 0.15);
+
           }
         }
       }
@@ -554,5 +687,7 @@ body {
       position: relative;
       top: 1px;
     }
+
+
   }
 }
