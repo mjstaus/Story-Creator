@@ -72,7 +72,7 @@ module.exports = (db) => {
     db.query(queryString, [req.params.id])
       .then((data) => {
         const templateVars = { data: data.rows };
-        const secondQueryString = `SELECT users.name as contributor, contributions.id as contribution_id
+        const secondQueryString = `SELECT users.name as contributor, users.avatar as contributor_avatar, contributions.id as contribution_id
         FROM users
         JOIN contributions ON users.id = contributions.user_id
         JOIN stories ON contributions.story_id = stories.id
@@ -83,9 +83,10 @@ module.exports = (db) => {
             for (let obj = 0; obj < templateVars.data.length; obj++) {
               if (user.contribution_id === templateVars.data[obj]['contribution_id']) {
                 templateVars.data[obj]['contributor'] = user.contributor;
+                templateVars.data[obj]['contributor_avatar'] = user.contributor_avatar;
               }
             }
-          }console.log(templateVars)
+          }
           res.render("stories/stories_show", templateVars);
         })
       })
