@@ -1,19 +1,43 @@
 <%-include("../partials/_header")%>
 
 <div class="main">
-
   <div class="user_header">
-    <h1><%= data[0].name %>'s Contributions</h1>
-    <img src= <%= data[0].avatar %>>
+    <h2><%= data[0].name %>'s Contributions</h2>
   </div>
 
-  <div class="contribution_card">
+  <div class="user_stats">
+    <div class="avatar">
+      <img src=<%=data[0].avatar%>>
+    </div>
+    <div class="stats">
+
+      <div class="stat">
+        <img src="/images/pencil.png">
+        <p>Total Contributions: <span class="stat_num"><%= stats[0].contributions_total%></span></p>
+      </div>
+      <div class="stat">
+        <img src="/images/star.png">
+        <p>Accepted Contributions: <span class="stat_num"><%= stats[0].contributions_accepted%></span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="contribution_box">
     <% for (let d of data) { %>
-      <div>
-        <p><%= d.content %></p>
+      <div class="contribution">
+        <% if(!d.accepted){%>
+          <img src="/images/success.png">
+          <% }
+          else { '' }; %>
+          <p><%= d.content %></p>
+          <div class="upvotes">
+            <img src="/images/heart.png">
+            <p><%= votes[0].vote_count%></p>
+          </div>
       </div>
     <% } %>
   </div>
+</div>
 </div>
 
 <%-include("../partials/_footer")%>
