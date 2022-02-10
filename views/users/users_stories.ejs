@@ -31,6 +31,7 @@
     <% for (let d of data) { %>
       <div class="storybox_large">
         <a href="/stories/<%=d.id%>">
+          <div class="status_icon">
           <% if(!d.complete){%>
             <img src="/images/open_book.png">
           <% }
@@ -38,7 +39,8 @@
             <img src="/images/closed_book.png">
           <%}
           else { '' }; %>
-          <p><%= d.title %></p>
+        </div>
+        <div class="title"><p><%= d.title %></p></div>
         </a>
         </div>
     <% } %>
