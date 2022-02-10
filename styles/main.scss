@@ -7,6 +7,8 @@ $coral: #fe6d73;
 $cream: #fafaf8;
 $boxcolor: #fce7c6;
 $transparentboxcolor: #fce7c694;
+$cutivefont: 'Cutive Mono', monospace;
+$montserratfont: 'Montserrat', sans-serif;
 
 @mixin button {
   background-color: $coral;
@@ -40,16 +42,16 @@ body {
   h2 {
     font: {
       size: $h2size;
-      family: 'Montserrat', sans-serif;
     }
     text-align: center;
     color: $yellow;
-    text-shadow: 4px 2px 0px #b0797e, 6px 5px 0px #00000026;
+    text-shadow: 1px 1px 1px hsl(186, 43%, 60%), 2px 2px 2px hsl(186, 43%, 60%),
+      4px 4px 4px hsl(186, 43%, 60%), 8px 8px 8px hsl(186, 43%, 60%);
   }
   p {
     font: {
       size: 1.5rem;
-      family: 'Cutive Mono', monospace;
+      family: $cutivefont;
     }
   }
   a:hover {
@@ -57,16 +59,22 @@ body {
   }
   .button {
     @include button();
+    -webkit-transition: all ease-in-out 200ms;
+    -o-transition: all ease-in-out 200ms;
+    -ms-transition: all ease-in-out 200ms;
+    -moz-transition: all ease-in-out 200ms;
+    transition: all ease-in-out 200ms;
   }
   .button:hover {
     background-color: $deepblue;
     transform: scale(1.05);
-    border-radius: 10px;
   }
   .button:active {
     position: relative;
     top: 1px;
   }
+
+  /// NAV BAR ///
 
   header {
     display: flex;
@@ -86,12 +94,14 @@ body {
 
     .nav-logo {
       display: flex;
-      p {
+      a {
         font: {
           size: 30px;
-          family: 'Montserrat', sans-serif;
         }
         color: $yellow;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 10px;
       }
       img {
         width: 60px;
@@ -101,7 +111,7 @@ body {
     nav {
       width: 50%;
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-around;
       a {
         color: $cream;
         text-decoration: none;
@@ -115,6 +125,10 @@ body {
 
   .stories_show {
     margin: 0 15%;
+    img {
+      height: 80px;
+      width: 80px;
+    }
     .container{
       margin-top: 5%;
       h1 {
@@ -134,15 +148,14 @@ body {
         color: white;
         p {
           font: {
-            family: 'Montserrat', sans-serif;
+            family: $montserratfont
           }
         }
         .story_author{
           display: flex;
           flex-direction: row;
-          img {
-            height: 80px;
-            width: 80px;
+          p {
+            color: rgb(54, 54, 54);
           }
         }
         .story_status {
@@ -152,14 +165,25 @@ body {
           justify-content: space-between;
           width: 30%;
         }
+
+        .story_book {
+          height: 70px;
+          width: 70px;
+        }
       }
+    }
+
+    .initial_content, .content {
+      border-radius: 15px;
+      padding: 1% 3%;
     }
 
     .initial_content {
       margin-top: 5%;
-      background-color: $boxcolor;
-      border-radius: 15px;
-      padding: 1% 3%;
+    }
+
+    .content {
+      margin: 0;
     }
 
     .submit_contribution {
@@ -177,6 +201,43 @@ body {
         display: flex;
         justify-content: flex-end;
         margin-top: 1%;
+        button {
+          background-color: $deepblue;
+        }
+      }
+    }
+
+    .pending {
+      background-color: $transparentboxcolor;
+      border-radius: 15px;
+      margin: 5% 0;
+      padding: 0 3%;
+      .contributor, .likes_accept, .votes{
+        display: flex;
+        flex-direction: row;
+      }
+      .contributor, .votes {
+        p {
+          font-family: $montserratfont;
+          margin-left: 5px;
+          color: rgb(54, 54, 54);
+        }
+      }
+      .likes_accept {
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        .button {
+          background-color: $deepblue;
+        }
+        .votes {
+          align-items: center;
+          width: 10%;
+          .upvote{
+            width: 25px;
+            height: 25px;
+          }
+        }
       }
     }
   }
@@ -187,6 +248,7 @@ body {
     //homepage
     padding-top: 100px;
 
+    // HOME PAGE //
     .hero {
       padding-top: 5%;
       display: flex;
@@ -205,17 +267,21 @@ body {
             top: 1%;
             bottom: 0;
           }
+          color: $deepblue;
+          font-weight: bolder;
+          text-shadow: 1px 1px 1px hsl(60, 17%, 85%),
+            2px 2px 2px hsl(160, 17%, 85%), 4px 4px 4px hsl(60, 17%, 85%),
+            8px 8px 8px hsl(60, 17%, 85%);
         }
 
         .subheading {
           display: flex;
           flex-direction: column;
           justify-content: space-around;
-          height: 30%;
+          height: 42%;
           margin: {
             top: 5%;
             left: 5%;
-            bottom: 10%;
           }
           .sub_item {
             display: flex;
@@ -239,6 +305,11 @@ body {
           font: {
             size: 1.1rem;
           }
+          -webkit-transition: all ease-in-out 300ms;
+          -o-transition: all ease-in-out 300ms;
+          -ms-transition: all ease-in-out 300ms;
+          -moz-transition: all ease-in-out 300ms;
+          transition: all ease-in-out 300ms;
         }
       }
 
@@ -250,7 +321,7 @@ body {
         }
       }
     }
-
+    /// DISCOVER PAGE ///
     .discover {
       display: flex;
       flex: {
@@ -280,27 +351,20 @@ body {
           background: {
             color: $boxcolor;
           }
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          justify-content: space-evenly;
           a {
-            color: black;
+            color: $cream;
             font: {
               weight: bold;
-              family: 'Cutive Mono', monospace;
-              size: 1.2rem;
             }
             text-decoration: none;
-            margin: 3%;
           }
           img {
+            align-self: flex-end;
             height: 60px;
             width: 60px;
           }
         }
       }
-
 
     }
 /// USER'S STORIES ///
@@ -357,7 +421,7 @@ body {
       }
     }
 
-//// DASHBOARD ////
+    //// DASHBOARD ////
 
     .dashboard {
       flex: {
@@ -429,7 +493,7 @@ body {
       }
     }
 
-/// NEW STORY ///
+    /// NEW STORY ///
     .new-story {
       display: flex;
       justify-content: center;
@@ -496,6 +560,11 @@ body {
       @include button();
       margin-top: 20px;
       margin-bottom: 20px;
+      -webkit-transition: transform ease-in-out 400ms;
+      -o-transition: transform ease-in-out 400ms;
+      -ms-transition: transform ease-in-out 400ms;
+      -moz-transition: transform ease-in-out 400ms;
+      transition: transform ease-in-out 400ms;
     }
     #new-story-btn:hover {
       background-color: $deepblue;

@@ -5,14 +5,14 @@ const router = express.Router();
 module.exports = (db) => {
   //View all stories
   router.get("/", (req, res) => {
-    const queryString = `SELECT stories.*, users.name
-    FROM stories
-    JOIN users ON stories.user_id = users.id
-    WHERE complete = FALSE
-    ORDER BY id DESC;`;
+    const queryString = `
+      SELECT stories.*, users.name, users.avatar
+        FROM stories
+        JOIN users on stories.user_id = users.id
+        ORDER BY id`;
     db.query(queryString)
       .then((data) => {
-        const templateVars = { stories: data.rows };
+        const templateVars = { data: data.rows };
         res.render("stories/stories_index", templateVars);
       })
       .catch((err) => {
@@ -33,7 +33,7 @@ module.exports = (db) => {
         ORDER BY id DESC;`;
     db.query(queryString)
       .then((data) => {
-        const templateVars = { stories: data.rows };
+        const templateVars = { data: data.rows };
         res.render("stories/stories_index", templateVars);
       })
       .catch((err) => {
@@ -50,7 +50,7 @@ module.exports = (db) => {
         ORDER BY id DESC;`;
     db.query(queryString)
       .then((data) => {
-        const templateVars = { stories: data.rows };
+        const templateVars = { data: data.rows };
         res.render("stories/stories_index", templateVars);
       })
       .catch((err) => {
@@ -72,7 +72,7 @@ module.exports = (db) => {
     db.query(queryString, [req.params.id])
       .then((data) => {
         const templateVars = { data: data.rows };
-        const secondQueryString = `SELECT users.name as contributor, contributions.id as contribution_id
+        const secondQueryString = `SELECT users.name as contributor, users.avatar as contributor_avatar, contributions.id as contribution_id
         FROM users
         JOIN contributions ON users.id = contributions.user_id
         JOIN stories ON contributions.story_id = stories.id
@@ -83,6 +83,7 @@ module.exports = (db) => {
             for (let obj = 0; obj < templateVars.data.length; obj++) {
               if (user.contribution_id === templateVars.data[obj]['contribution_id']) {
                 templateVars.data[obj]['contributor'] = user.contributor;
+                templateVars.data[obj]['contributor_avatar'] = user.contributor_avatar;
               }
             }
           }console.log(templateVars)
