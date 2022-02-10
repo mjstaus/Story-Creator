@@ -1,25 +1,30 @@
 <%-include("../partials/_header")%>
 
 <div class="main">
-
-<section class="discover">
-  <div class="container">
-  <h2>Discover Stories</h2>
-<% for (let story of stories) { %>
-    <div class="storybox">
-      <a href="/stories/<%=story.id%>"><%=story.title%></a>
-
-      <% if(!story.complete){%>
-        <img src="/images/open_book.png">
-        <% }
-        else if (story.complete) { %>
-          <img src="/images/closed_book.png">
-      <%}
-      else { '' }; %>
-    </div>
-  <% } %>
-  </div>
-</section>
+  <section class="discover">
+    <div class="container">
+    <h2>Discover Stories</h2>
+  <% for (let d of data) { %>
+      <div class="storybox">
+        <a href="/stories/<%=d.id%>">
+          <p><strong><%=d.title%></strong></p>
+          <div class="creator">
+            <img src=<%=d.avatar%>>
+            <p>Created by <%=d.name%></p>
+          </div>
+          <div class="story_status">
+            <% if(!d.complete){%>
+              <img src="/images/open_book.png">
+            <% }
+              else if (d.complete) { %>
+                <img src="/images/closed_book.png">
+            <%}
+              else { '' }; %>
+          </div>
+        </a>
+      </div>
+          <% } %>
+  </section>
 </div>
 
 
