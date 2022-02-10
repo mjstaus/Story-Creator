@@ -16,8 +16,12 @@
         <p>Total Contributions: <span class="stat_num"><%= stats[0].contributions_total%></span></p>
       </div>
       <div class="stat">
-        <img src="/images/star.png">
+        <img src="/images/success.png">
         <p>Accepted Contributions: <span class="stat_num"><%= stats[0].contributions_accepted%></span></p>
+      </div>
+      <div class="stat">
+        <img src="/images/closed_book.png">
+        <p>Archived Contributions: <span class="stat_num"><%= stats[0].contributions_archived%></span></p>
       </div>
     </div>
   </div>
@@ -25,15 +29,35 @@
   <div class="contribution_box">
     <% for (let d of data) { %>
       <div class="contribution">
-        <% if(!d.accepted){%>
-          <img src="/images/success.png">
-          <% }
+        <a href="/stories/<%=d.story_id%>">
+        <div class="status_icon">
+          <% if(d.accepted){%>
+            <img src="/images/success.png">
+            <% }
+          else { '' };
+          if(d.archived){%>
+            <img src="/images/closed_book.png">
+            <% }
+          else { '' };
+          if(!d.accepted && !d.archived){%>
+            <img src="/images/pencil.png">
+            <% }
           else { '' }; %>
+        </div>
+        <div class="content">
           <p><%= d.content %></p>
+        </div>
           <div class="upvotes">
             <img src="/images/heart.png">
-            <p><%= votes[0].vote_count%></p>
+            <% if(d.votes){%>
+              <p><%= d.votes%></p>
+              <% }
+              else if(!d.votes){%>
+                <p>0</p>
+                <% }
+              else { '' }; %>
           </div>
+        </a>
       </div>
     <% } %>
   </div>

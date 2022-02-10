@@ -88,16 +88,18 @@ body {
     }
 
     .nav-logo {
-      display: flex;
-      p {
-        font: {
-          size: 30px;
-          family: 'Montserrat', sans-serif;
+      a {
+        display: flex;
+        p {
+          font: {
+            size: 30px;
+            family: 'Montserrat', sans-serif;
+          }
+          color: $yellow;
         }
-        color: $yellow;
-      }
-      img {
-        width: 60px;
+        img {
+          width: 60px;
+        }
       }
     }
 
@@ -355,7 +357,7 @@ body {
         }
       }
     }
-      /// USER'S STORIES ///
+      /// USER'S STATS ///
 
     .user_stats {
       border-radius: 12px;
@@ -387,7 +389,7 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        width: 35%;
+        width: 55%;
 
         .stat {
           display: flex;
@@ -395,19 +397,20 @@ body {
           border: 3px solid $coral;
           border-radius: 10px;
           margin-bottom: 5%;
-          // padding-right: 5%;
 
           p {
             padding-left: 2%;
             color: $deepblue;
-            font-size: smaller;
           }
           img {
             height: 50px;
+            width: auto;
+            margin-top:  20px;
+            margin-left: 5px;
           }
           .stat_num {
             color: $coral;
-            font-size: large;
+            font-size: 1.5rem;
             font-weight: bold;
           }
         }
@@ -420,63 +423,64 @@ body {
       flex-direction: column;
       align-items: center;
 
+      .storybox_large:hover {
+        box-shadow:
+          1px 1px 1px hsl(186, 43%, 60%),
+          2px 2px 2px hsl(186, 43%, 60%),
+          4px 4px 4px hsl(186, 43%, 60%),
+          8px 8px 8px hsl(186, 43%, 60%);
+      }
+
       .storybox_large {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         width: 45%;
-        height: 150px;
+        height: fit-content;
         font-family: Courier, monospace;
         font-size: 24px;
         resize: none;
         margin-bottom: 30px;
+        padding: 1%;
         background-image: url(https://static.tumblr.com/maopbtg/E9Bmgtoht/lines.png),
           url(https://static.tumblr.com/maopbtg/nBUmgtogx/paper.png);
         background-repeat: repeat-y, repeat;
         -webkit-border-radius: 12px;
         border-radius: 12px;
+        -webkit-transition: all ease-in-out 300ms;
+        -o-transition: all ease-in-out 300ms;
+        -ms-transition: all ease-in-out 300ms;
+        -moz-transition: all ease-in-out 300ms;
+        transition: all ease-in-out 300ms;
 
         &:focus {
           outline: none;
         }
-
         a {
           text-decoration: none;
           width: 100%;
           height: 100%;
-          -webkit-transition: all ease-in-out 300ms;
-          -o-transition: all ease-in-out 300ms;
-          -ms-transition: all ease-in-out 300ms;
-          -moz-transition: all ease-in-out 300ms;
-          transition: all ease-in-out 300ms;
-
         }
         a:hover {
           transform: none;
-          box-shadow:
-            1px 1px 1px hsl(186, 43%, 60%),
-            2px 2px 2px hsl(186, 43%, 60%),
-            4px 4px 4px hsl(186, 43%, 60%),
-            8px 8px 8px hsl(186, 43%, 60%);
         }
 
         p {
-          color: $deepblue;
+          color: black;
           font: {
             weight: bold;
             size: 2.5rem;
           }
-          display: inline;
           padding: {
             right: 2%;
-            left: 5%;
+            left: 18%;
             bottom: 5%;
           }
           margin: 0;
         }
         img {
-          align-self: flex-end;
+          align-self: center;
           height: 60px;
-          width: 60px;
+          width: auto;
         }
       }
     }
@@ -487,41 +491,81 @@ body {
       flex-direction: column;
       align-items: center;
 
+      .contribution:hover {
+        box-shadow:
+          1px 1px 1px hsl(186, 43%, 60%),
+          2px 2px 2px hsl(186, 43%, 60%),
+          4px 4px 4px hsl(186, 43%, 60%),
+          8px 8px 8px hsl(186, 43%, 60%);
+      }
+
       .contribution {
         display: flex;
+        flex-direction: column;
         align-items: flex-start;
         width: 45%;
-        height: 150px;
+        height: fit-content;
         font-family: Courier, monospace;
         font-size: 24px;
         resize: none;
         margin-bottom: 30px;
-        background-color: $yellow;
+        padding: 1%;
+        background-image: url(https://static.tumblr.com/maopbtg/E9Bmgtoht/lines.png),
+          url(https://static.tumblr.com/maopbtg/nBUmgtogx/paper.png);
+        background-repeat: repeat-y, repeat;
         -webkit-border-radius: 12px;
         border-radius: 12px;
+        -webkit-transition: all ease-in-out 300ms;
+        -o-transition: all ease-in-out 300ms;
+        -ms-transition: all ease-in-out 300ms;
+        -moz-transition: all ease-in-out 300ms;
+        transition: all ease-in-out 300ms;
 
         &:focus {
           outline: none;
         }
+        a {
+          text-decoration: none;
+          width: 100%;
+          height: 100%;
+        }
+        a:hover {
+          transform: none;
+        }
+
+        .upvotes {
+          display: flex;
+          width: 10%;
+          margin: {
+            left: 2%;
+            top: 2%;
+          }
+          img {
+            height: 30px;
+            width: auto;
+          }
+          p {
+            font-family: $cutivefont;
+          }
+        }
 
         p {
-          color: $deepblue;
+          color: black;
           font: {
             weight: bold;
             size: 2.5rem;
           }
-          display: inline;
           padding: {
             right: 2%;
-            left: 5%;
+            left: 18%;
             bottom: 5%;
           }
           margin: 0;
         }
         img {
-          align-self: flex-end;
+          align-self: center;
           height: 60px;
-          width: 60px;
+          width: auto;
         }
       }
     }
