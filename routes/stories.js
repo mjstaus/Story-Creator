@@ -85,7 +85,7 @@ module.exports = (db) => {
                 templateVars.data[obj]['contributor'] = user.contributor;
               }
             }
-          }console.log(templateVars)
+          }
           res.render("stories/stories_show", templateVars);
         })
       })
