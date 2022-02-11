@@ -7,19 +7,34 @@
   <% for (let d of data) { %>
       <div class="storybox">
         <a href="/stories/<%=d.id%>">
-          <div class="story_status">
-            <% if(!d.complete){%>
-              <img src="/images/open_book.png">
-            <% }
-              else if (d.complete) { %>
-                <img src="/images/closed_book.png">
-            <%}
-              else { '' }; %>
+
+          <div class="story_info">
+            <div class="story_info_status">
+              <% if(!d.complete){%>
+                <div class="tooltip">
+                  <img src="/images/open_book.png">
+                  <span class="tooltiptext">Incomplete Story</span>
+                </div>
+              <% }
+                else if (d.complete) { %>
+                  <div class="tooltip">
+                    <img src="/images/closed_book.png">
+                    <span class="tooltiptext">Finalized Story</span>
+                  </div>
+              <%}
+                else { '' }; %>
+            </div>
+            <div class="story_title">
+              <p>Title: <%=d.title%></p>
+            </div>
           </div>
-          <p><strong><%=d.title%></strong></p>
           <div class="creator">
-            <img src=<%=d.avatar%>>
-            <p>Created by <%=d.name%></p>
+            <div class="creator_avator">
+              <img src=<%=d.avatar%>>
+            </div>
+            <div class="creator_name">
+              <p>Created by <%=d.name%></p>
+            </div>
           </div>
         </a>
       </div>
