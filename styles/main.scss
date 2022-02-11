@@ -29,6 +29,11 @@ $montserratfont: "Montserrat", sans-serif;
     decoration: none;
     align: center;
   }
+  -webkit-transition: transform ease-in-out 400ms;
+  -o-transition: transform ease-in-out 400ms;
+  -ms-transition: transform ease-in-out 400ms;
+  -moz-transition: transform ease-in-out 400ms;
+  transition: transform ease-in-out 400ms;
 }
 
 body {
@@ -62,9 +67,7 @@ body {
     @include button();
   }
   .button:hover {
-    background-color: $deepblue;
     transform: scale(1.05);
-    border-radius: 10px;
   }
   .button:active {
     position: relative;
@@ -90,6 +93,11 @@ body {
     .nav-logo {
       a {
         display: flex;
+        text-decoration: none;
+
+        &:hover {
+          transform: scale(1.05);
+        }
         p {
           font: {
             size: 30px;
@@ -433,14 +441,15 @@ body {
           background-repeat: repeat-y, repeat;
           -webkit-border-radius: 12px;
           border-radius: 12px;
-          -webkit-transition: all ease-in-out 300ms;
-          -o-transition: all ease-in-out 300ms;
-          -ms-transition: all ease-in-out 300ms;
-          -moz-transition: all ease-in-out 300ms;
-          transition: all ease-in-out 300ms;
 
           &:hover {
+            transform: scale(1.05);
             box-shadow: #00000040 0px 54px 55px, #0000001f 0px -12px 30px, #0000001f 0px 4px 6px, #0000002b 0px 12px 13px, #00000017 0px -3px 5px;
+            -webkit-transition: transform ease-in-out 400ms;
+            -o-transition: transform ease-in-out 400ms;
+            -ms-transition: transform ease-in-out 400ms;
+            -moz-transition: transform ease-in-out 400ms;
+            transition: transform ease-in-out 400ms;
           }
           &:focus {
             outline: none;
@@ -820,16 +829,9 @@ body {
       @include button();
       margin-top: 20px;
       margin-bottom: 20px;
-      -webkit-transition: transform ease-in-out 400ms;
-      -o-transition: transform ease-in-out 400ms;
-      -ms-transition: transform ease-in-out 400ms;
-      -moz-transition: transform ease-in-out 400ms;
-      transition: transform ease-in-out 400ms;
     }
     #new-story-btn:hover {
-      background-color: $deepblue;
       transform: scale(1.05);
-      border-radius: 10px;
     }
     #new-story-btn:active {
       position: relative;
@@ -849,11 +851,14 @@ body {
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 170px;
-  background-color: $deepblue;
+  background-color: #227c9dd4;
   color: #fff;
   text-align: center;
   padding: 5px 0;
   border-radius: 6px;
+  font-family: Courier, monospace;
+  font-size: 20px;
+  resize: none;
 
   /* Position the tooltip text */
   position: absolute;
@@ -874,7 +879,7 @@ body {
   top: 100%;
   left: 20px;
   width: 0;
-  border-top: 20px solid $deepblue;
+  border-top: 20px solid #227c9dd4;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
 }
