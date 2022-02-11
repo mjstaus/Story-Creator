@@ -389,7 +389,7 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        width: 55%;
+        width: 57%;
 
         .stat {
           display: flex;
@@ -400,6 +400,7 @@ body {
 
           p {
             padding-left: 2%;
+            padding-right:2%;
             color: $deepblue;
           }
           img {
@@ -433,7 +434,6 @@ body {
 
       .storybox_large {
         display: flex;
-        align-items: center;
         width: 45%;
         height: fit-content;
         font-family: Courier, monospace;
