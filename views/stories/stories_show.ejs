@@ -19,9 +19,15 @@
         <div class="status_icon">
           <!-- Complete vs. incomplete icons -->
           <% if(!data[0].complete){%>
-            <img src="/images/open_book.png" class="story_book">
+            <div class="tooltip">
+              <img src="/images/open_book.png" class="story_book">
+              <span class="tooltiptext">Incomplete Story</span>
+            </div>
           <% } else if (data[0].complete) { %>
-            <img src="/images/closed_book.png" class="story_book">
+            <div class="tooltip">
+              <img src="/images/closed_book.png" class="story_book">
+              <span class="tooltiptext">Finalized Story</span>
+            </div>
           <%}%>
         </div>
         <div class="status_button">
