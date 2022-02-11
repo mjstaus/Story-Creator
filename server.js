@@ -54,14 +54,13 @@ app.use("/stories", storiesRoutes(db));
 // Separate them into separate routes files (see above).
 
 app.get("/", (req, res) => {
-  db.query(`SELECT stories.*, users.name
+  db.query(`SELECT stories.*, users.name, users.avatar
       FROM stories
       JOIN users ON stories.user_id = users.id
-      WHERE complete = FALSE
-      ORDER BY id DESC
+      ORDER BY id
       LIMIT 9;`)
       .then((data) => {
-        const templateVars = { stories: data.rows };
+        const templateVars = { data: data.rows };
         res.render("index", templateVars);
       })
       .catch((err) => {
