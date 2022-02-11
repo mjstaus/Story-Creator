@@ -179,7 +179,7 @@ module.exports = (db) => {
 
     db.query(queryString, queryParams)
       .then((data) => {
-        res.redirect(`/stories/${data.rows[0].story_id}`);
+        res.redirect(`/stories/${data.rows[0].story_id}/#submissions`);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -224,7 +224,7 @@ module.exports = (db) => {
     }
     db.query(query)
       .then((data) => {
-        res.redirect(`/stories/${story_id}`);
+        res.redirect(`/stories/${story_id}/#submissions`);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
