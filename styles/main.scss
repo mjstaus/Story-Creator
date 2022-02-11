@@ -321,14 +321,25 @@ body {
     padding-top: 100px;
 
     .hero {
-      padding-top: 5%;
       display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
+      justify-content: center;
+      flex-wrap: wrap;
       background: {
         color: $cream;
       }
       height: 47rem;
+
+      .hero_heading {
+        display: inline-block;
+
+        &:first-child {
+          width: 100%;
+          height: 100px;
+        }
+        &:not(:first-child) {
+          flex: 1;
+        }
+      }
 
       .hero_copy {
         display: flex;
@@ -343,7 +354,6 @@ body {
         .subheading {
           display: flex;
           flex-direction: column;
-          justify-content: space-around;
           height: 30%;
           margin: {
             top: 5%;
@@ -352,23 +362,28 @@ body {
           }
           .sub_item {
             display: flex;
+            padding-top: 10px;
+            margin-bottom: 10px;
+            width: fit-content;
             img {
-              height: 40px;
+              height: 70px;
               width: auto;
               margin-right: 2%;
             }
             p {
-              margin: 0;
+              margin: 20px;
+              color: #312e2e;
+              width: 440px;
               font: {
-                size: 2rem;
+                size: 1.75rem;
                 weight: bold;
               }
             }
           }
         }
         .button {
-          width: 60%;
-          margin-top: 10%;
+          width: 40%;
+          margin-top: 25%;
           font: {
             size: 1.1rem;
           }
@@ -376,6 +391,7 @@ body {
       }
 
       .hero_image {
+        display: flex;
         img {
           height: 500px;
           width: auto;
