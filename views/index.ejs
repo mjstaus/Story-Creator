@@ -62,17 +62,17 @@
   <section class="discover">
     <div class="container">
       <h2>Discover Stories</h2>
-      <% for (let story of stories) { %>
+      <% for (let d of data) { %>
         <div class="storybox">
-          <a href="/stories/<%=story.id%>">
+          <a href="/stories/<%=d.id%>">
             <div class="story_info">
               <div class="story_info_status">
-                <% if(!story.complete){%>
+                <% if(!d.complete){%>
                   <div class="tooltip">
                     <img src="/images/open_book.png">
                     <span class="tooltiptext">Incomplete Story</span>
                   </div>
-                  <% } else if (story.complete) { %>
+                  <% } else if (d.complete) { %>
                     <div class="tooltip">
                       <img src="/images/closed_book.png">
                       <span class="tooltiptext">Finalized Story</span>
@@ -81,16 +81,16 @@
               </div>
               <div class="story_title">
                 <p>Title:<br>
-                  <%=story.title%>
+                  <%=d.title%>
                 </p>
               </div>
             </div>
             <div class="creator">
               <div class="creator_avator">
-                <img src=<%=story.avatar%>>
+                <img src=<%=d.avatar%>>
               </div>
               <div class="creator_name">
-                <p>Created by <%=story.name%>
+                <p>Created by <%=d.name%>
                 </p>
               </div>
             </div>
