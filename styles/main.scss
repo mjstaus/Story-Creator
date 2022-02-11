@@ -60,11 +60,23 @@ body {
     }
     text-decoration: none;
   }
+  a {
+    -webkit-transition: transform ease-in-out 200ms;
+    -o-transition: transform ease-in-out 200ms;
+    -ms-transition: transform ease-in-out 200ms;
+    -moz-transition: transform ease-in-out 200ms;
+    transition: transform ease-in-out 200ms;
+  }
   a:hover {
-    transform: scale(1.1);
+    transform: scale(1.06);
   }
   .button {
     @include button();
+    -webkit-transition: all ease-in-out 200ms;
+    -o-transition: all ease-in-out 200ms;
+    -ms-transition: all ease-in-out 200ms;
+    -moz-transition: all ease-in-out 200ms;
+    transition: all ease-in-out 200ms;
   }
   .button:hover {
     transform: scale(1.05);
@@ -704,9 +716,7 @@ body {
       }
       display: flex;
       align-items: center;
-      a {
-        text-decoration: none;
-      }
+
       text: {
         align: center;
       }
@@ -716,7 +726,6 @@ body {
         align-items: center;
         margin-top: 15px;
         h2 {
-          padding-bottom: 50px;
           font-size: 4rem;
           text-align: center;
           color: $yellow;
@@ -729,14 +738,15 @@ body {
         justify-content: space-evenly;
         margin: 1% 5%;
         min-height: 300px;
-        width: 1200px;
 
-        .action {
+        a {
+          text-decoration: none;
           display: flex;
           flex-direction: column;
           width: 30%;
           border-radius: 8%;
           background-color: $teal;
+          border: 3px solid $cream;
           img {
             width: 180px;
             height: 180px;
