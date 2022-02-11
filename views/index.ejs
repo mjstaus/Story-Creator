@@ -61,21 +61,42 @@
   </section>
   <section class="discover">
     <div class="container">
-    <h2>Discover Stories</h2>
-  <% for (let story of stories) { %>
-      <div class="storybox">
-        <a href="/stories/<%=story.id%>">@<%=story.name%><br><%=story.title%></a>
-
-        <% if(!story.complete){%>
-          <img src="/images/open_book.png">
-          <% }
-          else if (story.complete) { %>
-            <img src="/images/closed_book.png">
-        <%}
-        else { '' }; %>
-      </div>
-    <% } %>
-    </div>
+      <h2>Discover Stories</h2>
+      <% for (let story of stories) { %>
+        <div class="storybox">
+          <a href="/stories/<%=story.id%>">
+            <div class="story_info">
+              <div class="story_info_status">
+                <% if(!story.complete){%>
+                  <div class="tooltip">
+                    <img src="/images/open_book.png">
+                    <span class="tooltiptext">Incomplete Story</span>
+                  </div>
+                  <% } else if (story.complete) { %>
+                    <div class="tooltip">
+                      <img src="/images/closed_book.png">
+                      <span class="tooltiptext">Finalized Story</span>
+                    </div>
+                    <%} else { '' }; %>
+              </div>
+              <div class="story_title">
+                <p>Title:<br>
+                  <%=story.title%>
+                </p>
+              </div>
+            </div>
+            <div class="creator">
+              <div class="creator_avator">
+                <img src=<%=story.avatar%>>
+              </div>
+              <div class="creator_name">
+                <p>Created by <%=story.name%>
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <% } %>
   </section>
   </div>
 
