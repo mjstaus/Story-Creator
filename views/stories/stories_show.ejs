@@ -53,9 +53,10 @@
   </form>
   <% }%>
 
-  <!-- Pending Submissions -->
-<% for (let d of data) {
-  if(d.content && !d.accepted && !d.archived && !data[0].complete){%>
+ <!-- Pending Submissions -->
+<% for (let d of data) {%>
+<div>
+  <%if(d.content && !d.accepted && !d.archived && !data[0].complete){%>
     <div class="pending">
       <div class="contributor">
         <img class="avatar" src= <%= d.contributor_avatar %>>
@@ -75,10 +76,12 @@
           <form action="/stories/contributions/<%=d.contribution_id%>" method="POST">
             <button class="button">Accept Contribution</button>
           </form>
-      </div>
+          <%}%>
+        </div>
+        <%}%>
     </div>
   <% }%>
-<%}}%>
+
 
 
 
