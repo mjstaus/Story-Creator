@@ -63,7 +63,7 @@
     <!-- Pending Submissions -->
     <div class="pending_subs">
       <div class="pending_copy">
-        <p>Pending Submissions</p>
+        <p id="submissions">Pending Submissions</p>
       </div>
       <% for (let d of data) {%>
         <%if(d.content && !d.accepted && !d.archived && !data[0].complete){%>
