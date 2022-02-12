@@ -146,21 +146,30 @@ module.exports = (db) => {
   router.post("/contributions/:id", (req, res) => {
     const queryParams = [Number(req.params.id)];
     const queryString1 = `
-      UPDATE contributions
-        SET accepted = TRUE
-        WHERE id = $1
-        RETURNING *;`;
+      SELECT story_id
+        FROM contributions
+        WHERE id = $1`
     const queryString2 = `
       UPDATE contributions
         SET archived = TRUE
         WHERE id != $1
+        AND story_id = $2
         AND accepted = FALSE
+        RETURNING *;`;
+    const queryString3 = `
+      UPDATE contributions
+        SET accepted = TRUE
+        WHERE id = $1
         RETURNING *;`;
 
     db.query(queryString1, queryParams)
-      .then(db.query(queryString2, queryParams))
       .then((data) => {
-        res.redirect(`/stories/${data.rows[0].story_id}`);
+        const queryParams2 = [Number(req.params.id), data.rows[0].story_id];
+        db.query(queryString2, queryParams2)
+          .then(db.query(queryString3, queryParams)
+          .then((data) => {
+          res.redirect(`/stories/${data.rows[0].story_id}`);
+        }))
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
