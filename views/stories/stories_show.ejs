@@ -26,7 +26,7 @@
           <% } else if (data[0].complete) { %>
             <div class="tooltip">
               <img src="/images/closed_book.png" class="story_book">
-              <span class="tooltiptext">Finalized Story</span>
+              <span class="tooltiptext">Completed</span>
             </div>
           <%}%>
         </div>
@@ -34,7 +34,7 @@
           <!-- Complete Story Button (If user = creator, hard coded to users.id 1) -->
           <% if(data[0].user_id === 1 && !data[0].complete){%>
             <form action="/stories/<%=data[0].id%>" method="POST">
-            <button class="button">Finalize Story</button>
+            <button class="button">Complete</button>
             </form>
           <% }%>
         </div>
