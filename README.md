@@ -17,24 +17,24 @@ Users can:
 ## Look Inside
 ---
 ### Home 
-!["Homepage"](docs/screenshots/home.png)
+!["home"](docs/screenshots/home.png)
 ### Discover Stories
-!["Homepage"](docs/screenshots/discover.png)
+!["discover"](docs/screenshots/discover.png)
 
 ### View and Interact With a Story
-!["Homepage"](docs/screenshots/story-show.png)
+!["story-show"](docs/screenshots/story-show.png)
 
 ### User Dashboard
-!["Homepage"](docs/screenshots/dashboard.png)
+!["dashboard"](docs/screenshots/dashboard.png)
 
 ### Create a New Story
-!["Homepage"](docs/screenshots/new.png)
+!["new"](docs/screenshots/new.png)
 
 ### View Stories Created by User
-!["Homepage"](docs/screenshots/user-stories.png)
+!["user-stories"](docs/screenshots/user-stories.png)
 
 ### View Contributions by User
-!["Homepage"](docs/screenshots/user-contributions.png)
+!["user-contributions"](docs/screenshots/user-contributions.png)
 
 ## Getting Started
 ---
