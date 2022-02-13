@@ -13,6 +13,29 @@ Users can:
 - Upvote a contribution, and see upvotes for a contribution
 - View a list of stories from the homepage and the discover page,  along with their status (ie. in progress or completed)
 - Read a story
+
+## Look Inside
+---
+### Home 
+!["Homepage"](docs/screenshots/home.png)
+### Discover Stories
+!["Homepage"](docs/screenshots/discover.png)
+
+### View and Interact With a Story
+!["Homepage"](docs/screenshots/story-show.png)
+
+### User Dashboard
+!["Homepage"](docs/screenshots/dashboard.png)
+
+### Create a New Story
+!["Homepage"](docs/screenshots/new.png)
+
+### View Stories Created by User
+!["Homepage"](docs/screenshots/user-stories.png)
+
+### View Contributions by User
+!["Homepage"](docs/screenshots/user-contributions.png)
+
 ## Getting Started
 ---
 1. Go to our [node skeleton](https://github.com/lighthouse-labs/node-skeleton) repo and click the use this template button.
